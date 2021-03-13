@@ -6,14 +6,14 @@ function getSites(){
     .then(data => {
         console.log("resolved with:", data);
         JSON.parse(data).urls.forEach((u => {
-          let url = new URL(`https://cors-anywhere.herokuapp.com/${u}`) // Temporary solution
+          let url = new URL(`http://127.0.0.1:8080/${u}`); //Temporary solution
           console.log("parsed from jason:", url); 
           fetch(url).then((res) => {
-            res.text().then((htmlText) => {
-              let doc = DOMPARSER(htmlText, 'text/xml')
-              console.log(doc);
-            })
-          }) 
-        })) //json 
-    }) // data
-  } //getsites 
+            res.text().then((parsedText) => {
+              let doc = DOMPARSER(parsedText, 'text/xml');
+              console.log(doc)
+          })
+        }) //json 
+    })) //getsites 
+  })
+}

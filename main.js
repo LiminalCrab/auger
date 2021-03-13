@@ -21,14 +21,38 @@ function getData(){
           const items = doc.querySelectorAll("item"); //surely I don't actually need two of these? 
           const entries = doc.querySelectorAll("entry");
           let html = ``;
-            html += `<h2>${doc.querySelector("title").innerHTML}<h2>`
-          console.log(html)
-            html += `<p>${doc.querySelector("published").innerHTML}</p>`
-          console.log(html)
-            html += `<div class="feeds">`;
+            //html += `<p>${doc.querySelector("published").innerHTML}</p>`
           console.log(html);
           console.log(entries, items); // delete
 
+          items.forEach(el => {
+            html += `
+            <article>
+              <h3>
+                <span>${doc.querySelector("title").innerHTML}</span>
+                <a href="${el.querySelector("link").innerHTML}" target="_blank" rel="noopener">
+                ${el.querySelector("title").innerHTML}
+                </a>
+                <span>${doc.querySelector("pubDate").innerHTML}</span>
+              </h3>
+            </article>
+            `;
+          })
+          entries.forEach(el => {
+            html += `
+            <article>
+              <h3>
+                <span>${doc.querySelector("title").innerHTML}</span>
+                <a href="${el.querySelector("link").innerHTML}" target="_blank" rel="noopener">
+                ${el.querySelector("title").innerHTML}
+                </a>
+                <span>${doc.querySelector("published").innerHTML}</span>
+              </h3>
+            </article>
+            `;
+          })
+          html += `</div>`;
+          document.getElementById('content').insertAdjacentHTML("beforeend", html);
         })
       })
     }))

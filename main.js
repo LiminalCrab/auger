@@ -16,11 +16,18 @@ function getData(){
       //we have to fetch it from the proxy now.
       fetch(uri).then((res) => {
         res.text().then((parsedXML) => {
-          let doc = DOMPARSER(parsedXML, 'text/xml')
+          let doc = DOMPARSER(parsedXML, 'text/xml');
           console.log(doc);
-          const item = doc.querySelectorAll("item")
+          const items = doc.querySelectorAll("item"); //surely I don't actually need two of these? 
           const entries = doc.querySelectorAll("entry");
-          console.log(entries, item); // delete
+          let html = ``;
+            html += `<h2>${doc.querySelector("title").innerHTML}<h2>`
+          console.log(html)
+            html += `<p>${doc.querySelector("published").innerHTML}</p>`
+          console.log(html)
+            html += `<div class="feeds">`;
+          console.log(html);
+          console.log(entries, items); // delete
 
         })
       })

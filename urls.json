@@ -1,9 +1,10 @@
 {
     "urls": [
-        "https://wiki.xxiivv.com/links/rss.xml", 
         "https://electro.pizza/feed.xml", 
         "https://bismuth.garden/feed.xml", 
-        "https://xvw.github.io/atom.xml"
+        "https://xvw.github.io/atom.xml",
+        "https://wiki.xxiivv.com/links/rss.xml"
+
     ]
 }
 

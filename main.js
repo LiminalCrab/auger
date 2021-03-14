@@ -19,22 +19,22 @@ fetch('urls.json')
         let html = ``;
 
 
-        //sorting the dates
+        //sorting the dates test
         innerDate.forEach(el => {
           var dateData = el.innerHTML;
           el.innerHTML = dateData.replace(/^([0-9]{4})([0-9]{2})([0-9]{2})/, "$1/$2/$3") //remove the <> tags
           let parseThedate = Date.parse(dateData);
           dateStore.push(`${parseThedate}`);
-          dateStore.sort(function(x, y){
-            return y - x;
-          });
-          sortedDate = dateStore.map(function(x){
-            return new Date(x * 1000)
-          })
 
+          //okay so we're sorting here.
+          dateStore.sort(function(x, y){
+            return y - x
         });
 
-        console.log(sortedDate);
+      });
+
+      const dateRemap = dateStore.map(y => new Date(y * 1000))
+      console.log (dateRemap);
 
         items.forEach(el => {
           html += `

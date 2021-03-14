@@ -1,5 +1,7 @@
 const DOMPARSER = new DOMParser().parseFromString.bind(new DOMParser())
+
 let dateStore = [];
+
 fetch('urls.json')
 .then(response => response.text())
 .then(data => {
@@ -22,19 +24,16 @@ fetch('urls.json')
         //sorting the dates test
         innerDate.forEach(el => {
           var dateData = el.innerHTML;
-          el.innerHTML = dateData.replace(/^([0-9]{4})([0-9]{2})([0-9]{2})/, "$1/$2/$3") //remove the <> tags
-          let parseThedate = Date.parse(dateData);
-          dateStore.push(`${parseThedate}`);
-
-          //okay so we're sorting here.
-          dateStore.sort(function(x, y){
+          el.innerHTML = dateData.replace(/^([0-9]{4})([0-9]{2})([0-9]{2})/, "$1/$2/$3"); //remove the <> tags
+          const unixTimeParse = new Date(`'${dateData}'`);
+          dateStore.push(unixTimeParse);
+          DatetoHtml = dateStore.sort(function(x, y){
             return y - x
-        });
+          })
+          console.log(DatetoHtml);
+
 
       });
-
-      const dateRemap = dateStore.map(y => new Date(y * 1000))
-      console.log (dateRemap);
 
         items.forEach(el => {
           html += `

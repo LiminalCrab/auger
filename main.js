@@ -21,6 +21,8 @@ fetch('urls.json')
         let html = ``;
 
 
+
+      /*
         //sorting the dates test
         innerDate.forEach(el => {
           var dateData = el.innerHTML;
@@ -30,11 +32,12 @@ fetch('urls.json')
           DatetoHtml = dateStore.sort(function(x, y){
             return y - x
           })
-          console.log(DatetoHtml);
+          console.log(DatetoHtml)     
 
 
       });
-
+      */ 
+     
         items.forEach(el => {
           html += `
           <article>

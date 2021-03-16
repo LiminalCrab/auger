@@ -20,9 +20,6 @@ fetch('urls.json')
         const innerDate = doc.querySelectorAll("pubDate");
         let html = ``;
 
-
-
-      /*
         //sorting the dates test
         innerDate.forEach(el => {
           var dateData = el.innerHTML;
@@ -33,39 +30,7 @@ fetch('urls.json')
             return y - x
           })
           console.log(DatetoHtml)     
-
-
       });
-      */ 
-     
-        items.forEach(el => {
-          html += `
-          <article>
-            <h3>
-              <span>${doc.querySelector("title").innerHTML}</span>
-              <a href="${el.querySelector("link").innerHTML}" target="_blank" rel="noopener">
-              ${el.querySelector("title").innerHTML}
-              </a>
-              <span>${el.querySelector("pubDate").innerHTML}</span>
-            </h3>
-          </article>
-          `;
-        });
-        entries.forEach(el => {
-          html += `
-          <article>
-            <h3>
-              <span>${doc.querySelector("title").innerHTML}</span>
-              <a href="${el.querySelector("link").innerHTML}" target="_blank" rel="noopener">
-              ${el.querySelector("title").innerHTML}
-              </a>
-              <span>${el.querySelector("pubDate").innerHTML}</span>
-            </h3>
-          </article>
-          `;
-        });
-        html += `</div>`;
-        document.getElementById('content').insertAdjacentHTML("beforeend", html);
       })
     })
   }))

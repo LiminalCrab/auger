@@ -4,6 +4,16 @@ import httpx
 import xml.etree.ElementTree as ET
 import psycopg2
 
+                
+conn = psycopg2.connect(
+    host="",
+    database="rssfeeds",
+    user="postgres",
+    password="",
+    port=5432)
+
+cur = conn.cursor()
+
 URLS =  ["https://electro.pizza/feed.xml",
         "https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
@@ -53,13 +63,28 @@ async def main():
             response = await client.get(url)
             try:
                 root = ET.fromstring(response.text)
+                cur = conn.cursor()
             except:
+                conn = psycopg2.connect(
+                    host="",
+                    database="rssfeeds",
+                    user="postgres",
+                    password="",
+                    port=5432)
+                cur = conn.cursor()
                 continue
 
             try:
                 links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
             except IndexError:
                 print("URL {} is fucked up.".format(url))
+                conn = psycopg2.connect(
+                    host="",
+                    database="rssfeeds",
+                    user="postgres",
+                    password="",
+                    port=5432)
+                cur = conn.cursor()
                 continue
 
             for link in links:
@@ -69,21 +94,15 @@ async def main():
                 if title and link_url:
                     print("Found {} with HREF {}".format(title, link_url))
                     
-                      con = psycopg2.connect(
-                        host="",
-                        database="",
-                        user="postgres",
-                        password="",
-                        port=5432)
-
-                    cur = con.cursor()
-
                     cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", (title, link_url))
-
-                    cur.close()
-                    con.close()
+                    print(f"{title} and {link_url} submitted to database.")
                     
-                    
+        cur.execute("SELECT * FROM posts;")
+        rows = cur.fetchall()
+        for r in rows:
+            print(f"{r[0]} and {r[1]}")
+        cur.close()
+        conn.close()  
 
 if __name__ == '__main__':
     asyncio.run(main())

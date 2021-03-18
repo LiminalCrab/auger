@@ -97,12 +97,13 @@ async def main():
                     cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", (title, link_url))
                     print(f"{title} and {link_url} submitted to database.")
                     
-        cur.execute("SELECT * FROM posts;")
-        rows = cur.fetchall()
-        for r in rows:
-            print(f"{r[0]} and {r[1]}")
-        cur.close()
-        conn.close()  
+    cur.execute("SELECT * FROM posts;")
+    print("test")
+    rows = cur.fetchall()
+    for r in rows:
+        print(f"{r[0]} and {r[1]}")
+    cur.close()
+    conn.close()  
 
 if __name__ == '__main__':
     asyncio.run(main())

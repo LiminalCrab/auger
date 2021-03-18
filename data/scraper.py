@@ -2,6 +2,7 @@
 import asyncio
 import httpx
 import xml.etree.ElementTree as ET
+import psycopg2
 
 URLS =  ["https://electro.pizza/feed.xml",
         "https://bismuth.garden/feed.xml",
@@ -68,5 +69,19 @@ async def main():
                 if title and link_url:
                     print("Found {} with HREF {}".format(title, link_url))
 
+                    con = psycopg2.connect(
+                        host="172.17.0.1",
+                        database="rssfeeds",
+                        user="postgres",
+                        password="admin11",
+                        port=5432)
+
+                    cur = con.cursor()
+
+                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", (title, link_url))
+
+                    cur.close()
+                    con.close()
 if __name__ == '__main__':
     asyncio.run(main())
+

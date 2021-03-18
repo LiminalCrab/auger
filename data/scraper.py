@@ -68,12 +68,12 @@ async def main():
 
                 if title and link_url:
                     print("Found {} with HREF {}".format(title, link_url))
-
-                    con = psycopg2.connect(
-                        host="172.17.0.1",
-                        database="rssfeeds",
+                    
+                      con = psycopg2.connect(
+                        host="",
+                        database="",
                         user="postgres",
-                        password="admin11",
+                        password="",
                         port=5432)
 
                     cur = con.cursor()
@@ -82,6 +82,8 @@ async def main():
 
                     cur.close()
                     con.close()
+                    
+                    
+
 if __name__ == '__main__':
     asyncio.run(main())
-

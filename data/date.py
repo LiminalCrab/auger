@@ -58,7 +58,7 @@ async def main():
                 print("exception in first try")
                 continue
             try:
-                links = [x for x in r_stream if x.tag.split("}")[1] in ("entry", "item", "channel")]
+                links = [x for x in r_stream if x.tag.split("}")[1] in ("entry", "item")]
             except IndexError:
                 print("URL {} is fucked up.".format(feed))
                 continue
@@ -69,13 +69,15 @@ async def main():
             pub_date = [x.text for x in link if x.tag.split("}")[1] == "pubDate"]
             link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
             
-            if pub_date and link_url:
-                print("Found dates {} from {}".format(pub_date, link_url))
+            
             if published_date and link_url:
-                print("Found published_date {} from {}".format(published_date, link_url))
-            #using the updated tag in the xml, not the day it was updated in db.
+                print("{} and {}".format(published_date, link_url))
             if updated_date and link_url:
-                print("found updated_date: {} from {}".format(updated_date, link_url))
+                print("updated tag found: {} at {}".format(updated_date, link_url))
+            if pub_date and link_url:
+                print("pubDate tag found: {} at {}".format(pub_date, link_url))
+
+            
             
 if __name__ == '__main__':
     asyncio.run(main())      

@@ -3,16 +3,15 @@ import asyncio
 import httpx
 import xml.etree.ElementTree as ET
 import psycopg2
-import pdb
 
-                
+#open initial connection
 conn = psycopg2.connect(
     host="",
     database="",
     user="",
     password="",
     port=5432)
-
+#open initial cursor
 cur = conn.cursor()
 
 URLS =  ["https://electro.pizza/feed.xml",
@@ -95,7 +94,8 @@ async def main():
                 if title and link_url:
                     print("Found {} with HREF {}".format(title, link_url))
                     
-                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", (title[0], link_url[0]))
+                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                (title[0], link_url[0]))
                     conn.commit()
                     print("committed")
                     print(f"{title} and {link_url} submitted to database.")

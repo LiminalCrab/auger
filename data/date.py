@@ -26,7 +26,6 @@ URLS =  ["https://electro.pizza/feed.xml",
         "https://crlf.site/feed.xml",
         "https://0xff.nu/feed.xml",
         "https://system32.simone.computer/rss.xml",
-        "https://xj-ix.luxe/feed.atom",
         "https://simply.personal.jenett.org/feed/",
         "https://q.pfiffer.org/feed.xml",
         "https://www.edwinwenink.xyz/index.xml",
@@ -83,11 +82,11 @@ async def main():
                         database="",
                         user="",
                         password="",
-                        port= )
+                        port=5432 )
                                     
                     cur = conn.cursor()
                     cur.execute("SELECT post_url FROM posts WHERE post_url = %s;", (link_url))
-                    result = cur.fetchone();
+                    result = cur.fetchone()
                     print("{} FROM DATABASE MATCHED {} FROM URLS.".format(result, link_url))
                     cur.close()
                     conn.close()
@@ -97,7 +96,7 @@ async def main():
                         database="",
                         user="",
                         password="",
-                        port=)
+                        port=5432)
                     cur = conn.cursor()
                     print ("FUCKED URL {} cannot be added to database.".format(feed))
                     continue

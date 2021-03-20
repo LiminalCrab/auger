@@ -71,26 +71,36 @@ async def main():
                 link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
                 
                 if published_date and link_url:
-                    print("{} and {}".format(published_date, link_url))
+                    print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date, link_url))
                 if updated_date and link_url:
-                    print("updated tag found: {} at {}".format(updated_date, link_url))
+                    print("UPDATED DATE: updated tag found: {} at {}".format(updated_date, link_url))
                 if pub_date and link_url:
-                    print("pubDate tag found: {} at {}".format(pub_date, link_url))
+                    print("PUBDATE: pubDate tag found: {} at {}".format(pub_date, link_url))
+                try:
                                     
-                conn = psycopg2.connect(
-                    host="",
-                    database="",
-                    user="",
-                    password="",
-                    port= )
-                                
-                cur = conn.cursor()
-                cur.execute("SELECT * FROM posts WHERE post_url=(%s);", (link_url))
-                row = cur.fetchone();
-                print(f"{row} and {link_url} match.")
-                cur.close()
-                conn.close()
-
+                    conn = psycopg2.connect(
+                        host="",
+                        database="",
+                        user="",
+                        password="",
+                        port= )
+                                    
+                    cur = conn.cursor()
+                    cur.execute("SELECT post_url FROM posts WHERE post_url = %s;", (link_url))
+                    result = cur.fetchone();
+                    print("{} FROM DATABASE MATCHED {} FROM URLS.".format(result, link_url))
+                    cur.close()
+                    conn.close()
+                except IndexError:
+                    conn = psycopg2.connect(
+                        host="",
+                        database="",
+                        user="",
+                        password="",
+                        port=)
+                    cur = conn.cursor()
+                    print ("FUCKED URL {} cannot be added to database.".format(feed))
+                    continue
                 
 
             

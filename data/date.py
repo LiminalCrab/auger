@@ -3,6 +3,7 @@ import re
 import httpx
 import asyncio
 import xml.etree.ElementTree as ET
+import pdb
 
 URLS =  ["https://electro.pizza/feed.xml",
         "https://bismuth.garden/feed.xml",
@@ -63,19 +64,34 @@ async def main():
                 print("URL {} is fucked up.".format(feed))
                 continue
         
-        for link in links:
-            published_date = [x.text for x in link if x.tag.split("}")[1] == "published"]
-            updated_date = [x.text for x in link if x.tag.split("}")[1] == "updated"]
-            pub_date = [x.text for x in link if x.tag.split("}")[1] == "pubDate"]
-            link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
-            
-            
-            if published_date and link_url:
-                print("{} and {}".format(published_date, link_url))
-            if updated_date and link_url:
-                print("updated tag found: {} at {}".format(updated_date, link_url))
-            if pub_date and link_url:
-                print("pubDate tag found: {} at {}".format(pub_date, link_url))
+            for link in links:
+                published_date = [x.text for x in link if x.tag.split("}")[1] == "published"]
+                updated_date = [x.text for x in link if x.tag.split("}")[1] == "updated"]
+                pub_date = [x.text for x in link if x.tag.split("}")[1] == "pubDate"]
+                link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
+                
+                if published_date and link_url:
+                    print("{} and {}".format(published_date, link_url))
+                if updated_date and link_url:
+                    print("updated tag found: {} at {}".format(updated_date, link_url))
+                if pub_date and link_url:
+                    print("pubDate tag found: {} at {}".format(pub_date, link_url))
+                                    
+                conn = psycopg2.connect(
+                    host="",
+                    database="",
+                    user="",
+                    password="",
+                    port= )
+                                
+                cur = conn.cursor()
+                cur.execute("SELECT * FROM posts WHERE post_url=(%s);", (link_url))
+                row = cur.fetchone();
+                print(f"{row} and {link_url} match.")
+                cur.close()
+                conn.close()
+
+                
 
             
             

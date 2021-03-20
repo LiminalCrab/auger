@@ -40,7 +40,6 @@ URLS =  ["https://electro.pizza/feed.xml",
         "https://milofultz.com/atom.xml",
         "https://wolfmd.me/feed.xml",
         "https://irimi.one/atom.xml",
-        "https://hugo.soucy.cc/index.xml",
         "https://darch.dk/feed/page:feed.xml",
         "https://natehn.com/index.xml",
         "https://www.gr0k.net/blog/feed.xml",
@@ -62,7 +61,7 @@ async def main():
             except IndexError:
                 print("URL {} is fucked up.".format(feed))
                 continue
-        
+        #This is probably the worst thing I've ever written and that's saying a lot.
             for link in links:
                 published_date = [x.text for x in link if x.tag.split("}")[1] == "published"]
                 updated_date = [x.text for x in link if x.tag.split("}")[1] == "updated"]
@@ -71,10 +70,28 @@ async def main():
                 
                 if published_date and link_url:
                     print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date, link_url))
+                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                (published_date[0], link_url[0]))                    
+                    cur.close()
+                    conn.close()
                 if updated_date and link_url:
                     print("UPDATED DATE: updated tag found: {} at {}".format(updated_date, link_url))
+                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                (updated_date[0], link_url[0]))
+                    cur.close()
+                    conn.close()
                 if pub_date and link_url:
                     print("PUBDATE: pubDate tag found: {} at {}".format(pub_date, link_url))
+                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                (pub_date[0], link_url[0]))
+                    cur.close()
+                    conn.close()
                 try:
                                     
                     conn = psycopg2.connect(
@@ -101,15 +118,8 @@ async def main():
                     print ("FUCKED URL {} cannot be added to database.".format(feed))
                     continue
                 
-
             
             
 if __name__ == '__main__':
     asyncio.run(main())      
             
-            
-        
-
-
-
-

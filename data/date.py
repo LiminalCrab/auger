@@ -3,7 +3,6 @@ import re
 import httpx
 import asyncio
 import xml.etree.ElementTree as ET
-import pdb
 
 URLS =  ["https://electro.pizza/feed.xml",
         "https://bismuth.garden/feed.xml",

@@ -6,10 +6,10 @@ import psycopg2
 
 #open initial connection
 conn = psycopg2.connect(
-    host="redacted",
-    database="redacted",
-    user="redacted",
-    password="redacted",
+    host="",
+    database="",
+    user="",
+    password="",
     port=5432 )
 #open initial cursor
 cur = conn.cursor()
@@ -35,7 +35,6 @@ URLS =  ["https://electro.pizza/feed.xml",
         "https://crlf.site/feed.xml",
         "https://0xff.nu/feed.xml",
         "https://system32.simone.computer/rss.xml",
-        "https://xj-ix.luxe/feed.atom",
         "https://simply.personal.jenett.org/feed/",
         "https://q.pfiffer.org/feed.xml",
         "https://www.edwinwenink.xyz/index.xml",
@@ -50,7 +49,6 @@ URLS =  ["https://electro.pizza/feed.xml",
         "https://milofultz.com/atom.xml",
         "https://wolfmd.me/feed.xml",
         "https://irimi.one/atom.xml",
-        "https://hugo.soucy.cc/index.xml",
         "https://darch.dk/feed/page:feed.xml",
         "https://natehn.com/index.xml",
         "https://www.gr0k.net/blog/feed.xml",
@@ -66,10 +64,10 @@ async def main():
                 cur = conn.cursor()
             except:
                 conn = psycopg2.connect(
-                    host="172.17.0.1",
-                    database="rssfeeds",
-                    user="postgres",
-                    password="admin11",
+                    host="",
+                    database="",
+                    user="",
+                    password="",
                     port=5432 )
                 cur = conn.cursor()
                 continue
@@ -79,10 +77,10 @@ async def main():
             except IndexError:
                 print("URL {} is fucked up.".format(url))
                 conn = psycopg2.connect(
-                    host="redacted",
-                    database="redacted",
-                    user="redacted",
-                    password="redacted",
+                    host="",
+                    database="",
+                    user="",
+                    password="",
                     port=5432 )
                 cur = conn.cursor()
                 continue

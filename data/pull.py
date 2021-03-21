@@ -6,11 +6,11 @@ import psycopg2
 
 #open initial connection
 conn = psycopg2.connect(
-    host="",
-    database="",
-    user="",
-    password="",
-    port=5432)
+    host="172.17.0.1",
+    database="rssfeeds",
+    user="postgres",
+    password="admin11",
+    port=5432 )
 #open initial cursor
 cur = conn.cursor()
 
@@ -66,11 +66,11 @@ async def main():
                 cur = conn.cursor()
             except:
                 conn = psycopg2.connect(
-                    host="",
-                    database="",
-                    user="",
-                    password="",
-                    port=5432)
+                    host="172.17.0.1",
+                    database="rssfeeds",
+                    user="postgres",
+                    password="admin11",
+                    port=5432 )
                 cur = conn.cursor()
                 continue
 
@@ -79,11 +79,11 @@ async def main():
             except IndexError:
                 print("URL {} is fucked up.".format(url))
                 conn = psycopg2.connect(
-                    host="",
-                    database="",
-                    user="",
-                    password="",
-                    port=5432)
+                    host="redacted",
+                    database="redacted",
+                    user="redacted",
+                    password="redacted",
+                    port=5432 )
                 cur = conn.cursor()
                 continue
 

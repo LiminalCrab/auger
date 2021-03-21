@@ -61,7 +61,7 @@ async def main():
             except IndexError:
                 print("URL {} is fucked up.".format(feed))
                 continue
-        #This is probably the worst thing I've ever written and that's saying a lot.
+        #This is probably the worst thing I've ever written so that says a lot about this.
             for link in links:
                 published_date = [x.text for x in link if x.tag.split("}")[1] == "published"]
                 updated_date = [x.text for x in link if x.tag.split("}")[1] == "updated"]
@@ -70,54 +70,31 @@ async def main():
                 
                 if published_date and link_url:
                     print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date, link_url))
-                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
+                    conn = psycopg2.connect(host="redacted", database="rssfeeds", user="postgres", password="admin11", port=5432)
                     cur = conn.cursor()
-                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                                (published_date[0], link_url[0]))                    
+                    cur.execute("INSERT INTO posts (post_date) VALUES (%s)", (published_date))                   
+                    conn.commit()
                     cur.close()
                     conn.close()
                 if updated_date and link_url:
                     print("UPDATED DATE: updated tag found: {} at {}".format(updated_date, link_url))
-                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
+                    conn = psycopg2.connect(host="redacted", database="rssfeeds", user="postgres", password="admin11", port=5432)
                     cur = conn.cursor()
-                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                                (updated_date[0], link_url[0]))
+                    cur.execute("INSERT INTO posts (post_date) VALUES (%s)", (updated_date))
+                    conn.commit()
                     cur.close()
                     conn.close()
                 if pub_date and link_url:
                     print("PUBDATE: pubDate tag found: {} at {}".format(pub_date, link_url))
-                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
+                    conn = psycopg2.connect(host="redacted", database="rssfeeds", user="postgres", password="admin11", port=5432)
                     cur = conn.cursor()
-                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                                (pub_date[0], link_url[0]))
+                    cur.execute("INSERT INTO posts (post_date) VALUES (%s)", (pub_date))
+                    conn.commit()
                     cur.close()
                     conn.close()
-                try:
-                                    
-                    conn = psycopg2.connect(
-                        host="",
-                        database="",
-                        user="",
-                        password="",
-                        port=5432 )
-                                    
-                    cur = conn.cursor()
-                    cur.execute("SELECT post_url FROM posts WHERE post_url = %s;", (link_url))
-                    result = cur.fetchone()
-                    print("{} FROM DATABASE MATCHED {} FROM URLS.".format(result, link_url))
-                    cur.close()
-                    conn.close()
-                except IndexError:
-                    conn = psycopg2.connect(
-                        host="",
-                        database="",
-                        user="",
-                        password="",
-                        port=5432)
-                    cur = conn.cursor()
-                    print ("FUCKED URL {} cannot be added to database.".format(feed))
-                    continue
                 
+                cur.close()
+                conn.close()
             
             
 if __name__ == '__main__':

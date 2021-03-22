@@ -24,11 +24,15 @@ async def main():
 
         
     cur.execute(dupes_del)
-    cur.execute(delete_empty)
-    deleted = cur.fetchall()
-    for dlt in deleted:
-       print(f"ID: {dlt[0]} TITLE: {dlt[1]}")
+    deleted_dupes = cur.fetchall()
+    for dupdlt in deleted_dupes:
+        print(f"DUPES: ID: {dupdlt[0]} TITLE: {dupdlt[1]}")
         
+    cur.execute(delete_empty)
+    deletedempt = cur.fetchall()
+    for emptdlt in deletedempt:
+        print(f"DELETED EMTPY: ID: {emptdlt[0]} TITLE: {emptdlt[1]}")
+
     conn.commit()
     cur.close()
     conn.close()

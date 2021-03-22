@@ -1,13 +1,13 @@
 import asyncio
 import psycopg2
 
+#open initial connection
+conn = psycopg2.connect("")
+
+#open initial cursor
+cur = conn.cursor()
 
 async def main():
-    #open initial connection
-    conn = psycopg2.connect("")
-
-    #open initial cursor
-    cur = conn.cursor()
     
     dupes_del = '''
         DELETE FROM posts

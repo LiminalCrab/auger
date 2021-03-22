@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import asyncio
 import httpx
 import xml.etree.ElementTree as ET

@@ -4,6 +4,12 @@ import httpx
 import asyncio
 import xml.etree.ElementTree as ET
 
+#open initial connection
+conn = psycopg2.connect("")
+
+#open initial cursor
+cur = conn.cursor()
+
 URLS =  ["https://electro.pizza/feed.xml",
         "https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
@@ -46,6 +52,9 @@ URLS =  ["https://electro.pizza/feed.xml",
         "https://wiki.xxiivv.com/links/rss.xml"]
 
 async def main():
+
+    conn = psycopg2.connect("")
+    
     async with httpx.AsyncClient() as client:
         for feed in URLS:
             response = await client.get(feed)
@@ -69,34 +78,20 @@ async def main():
                 
                 if published_date and link_url:
                     print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date, link_url))
-                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
-                    cur = conn.cursor()
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (published_date[0], link_url[0]))
                     print(f"{link_url[0]} and {updated_date[0]} added to database.")
-                    conn.commit()
-                    cur.close()
-                    conn.close()
                 if updated_date and link_url:
-                    print("UPDATED DATE: updated tag found: {} at {}".format(updated_date, link_url))
-                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
-                    cur = conn.cursor()
+                    print("UPDATED DATE: updated tag found: {} at {}".format(updated_date, link_url))                   
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (updated_date[0], link_url[0]))
                     print(f"{link_url[0]} and {updated_date[0]} added to database.")
-                    conn.commit()
-                    cur.close()
-                    conn.close()
                 if pub_date and link_url:
-                    print("PUBDATE: pubDate tag found: {} at {}".format(pub_date, link_url))
-                    conn = psycopg2.connect(host="", database="", user="", password="", port=5432)
-                    cur = conn.cursor()
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (pub_date[0], link_url[0]))
                     print(f"{link_url[0]} and {updated_date[0]} added to database.")
-                    conn.commit()
-                    cur.close()
-                    conn.close()
                     
-                cur.close()
-                conn.close()
+                    
+    conn.commit()
+    cur.close()
+    conn.close()
             
             
 if __name__ == '__main__':

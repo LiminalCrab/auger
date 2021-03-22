@@ -1,15 +1,12 @@
+#!/usr/bin/env python3
 import asyncio
 import httpx
 import xml.etree.ElementTree as ET
 import psycopg2
 
 #open initial connection
-conn = psycopg2.connect(
-    host="",
-    database="",
-    user="",
-    password="",
-    port=5432 )
+conn = psycopg2.connect("")
+
 #open initial cursor
 cur = conn.cursor()
 
@@ -60,28 +57,13 @@ async def main():
             response = await client.get(url)
             try:
                 root = ET.fromstring(response.text)
-                cur = conn.cursor()
             except:
-                conn = psycopg2.connect(
-                    host="",
-                    database="",
-                    user="",
-                    password="",
-                    port=5432 )
-                cur = conn.cursor()
                 continue
 
             try:
                 links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
             except IndexError:
                 print("URL {} is fucked up.".format(url))
-                conn = psycopg2.connect(
-                    host="",
-                    database="",
-                    user="",
-                    password="",
-                    port=5432 )
-                cur = conn.cursor()
                 continue
 
             for link in links:
@@ -90,9 +72,8 @@ async def main():
 
                 if title and link_url:
                     print("Found {} with HREF {}".format(title, link_url))
-                    
                     cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                                (title[0], link_url[0]))
+                               (title[0], link_url[0]))
                     conn.commit()
                     print("committed")
                     print(f"{title} and {link_url} submitted to database.")

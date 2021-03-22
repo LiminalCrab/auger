@@ -10,8 +10,7 @@ conn = psycopg2.connect("")
 #open initial cursor
 cur = conn.cursor()
 
-URLS =  ["https://electro.pizza/feed.xml",
-        "https://bismuth.garden/feed.xml",
+URLS =  ["https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
         "https://now.lectronice.com/feed.xml",
         "https://longest.voyage/index.xml",
@@ -87,11 +86,13 @@ async def main():
                 if pub_date and link_url:
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (pub_date[0], link_url[0]))
                     print(f"{link_url[0]} and {updated_date[0]} added to database.")
+        
                     
                     
-    conn.commit()
-    cur.close()
-    conn.close()
+                    
+        conn.commit()
+        cur.close()
+        conn.close()
             
             
 if __name__ == '__main__':

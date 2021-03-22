@@ -10,7 +10,7 @@ conn = psycopg2.connect("")
 #open initial cursor
 cur = conn.cursor()
 
-URLS =  ["https://electro.pizza/feed.xml",
+URLS =  [
         "https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
         "https://now.lectronice.com/feed.xml",

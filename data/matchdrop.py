@@ -20,8 +20,6 @@ async def main():
     delete_empty = '''
     DELETE FROM posts WHERE post_date IS NULL;
     '''
-
-
         
     cur.execute(dupes_del)
     deleted_dupes = cur.fetchall()

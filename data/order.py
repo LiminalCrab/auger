@@ -11,7 +11,7 @@ cur = conn.cursor()
 async def main():
     
     SET_DB_ORDER = '''
-    SELECT host_title, post_url, post_date FROM posts ORDER BY post_date DESC;
+    SELECT host_title, post_url FROM posts ORDER BY post_date DESC;
     '''
     print("ORDER.PY: SORTING DATES")
     cur.execute(SET_DB_ORDER)

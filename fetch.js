@@ -4,7 +4,7 @@ function POST_DATA(){
     .then(data => {
         console.log(data)
         const html = data.map(links => {
-            return `<a href="${data.data[1]}">${data}</a>`
+            return `<a href="${data.data[0]}">${data}</a>`
         })
         console.log(html)
     });

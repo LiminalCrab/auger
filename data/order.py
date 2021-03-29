@@ -10,11 +10,22 @@ cur = conn.cursor()
 
 async def main():
     
-    SET_DB_ORDER = '''
-    SELECT host_title, post_url FROM posts ORDER BY post_date DESC;
+   # SELECT_ORDER_DATE_TO_JSON = '''
+   # SELECT host_title, post_url FROM posts ORDER BY post_date DESC
+   # '''
+   
+    ORDER_BY_DATE_TO_JSON = '''
+        SELECT 
+            json_build_object(
+                'id', posts.id,
+                'title', posts.host_title,
+                'url', posts.post_url,
+                'date', posts.post_date
+            ) FROM posts ORDER BY post_date DESC;
     '''
+   
     print("ORDER.PY: SORTING DATES")
-    cur.execute(SET_DB_ORDER)
+    cur.execute(ORDER_BY_DATE_TO_JSON)
     data = cur.fetchall()
     
     with open('links.json', 'w', encoding='utf-8') as f:

@@ -1,13 +1,15 @@
 function POST_DATA(){
     fetch("data/links.json")
-    .then(response => response.json())
-    .then(data => {
+    .then(response => { return response.json()
+    }).then(data => {
         console.log(data)
-        const html = data.map(links => {
-            return `<a href="${data.data[0]}">${data}</a>`
+        let html = data.map(links => {
+            return `<a href='${links.url}>${links.title}</a>'`
         })
         console.log(html)
-    });
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 POST_DATA();

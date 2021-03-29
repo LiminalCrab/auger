@@ -26,7 +26,7 @@ async def main():
    
     print("ORDER.PY: SORTING DATES")
     cur.execute(ORDER_BY_DATE_TO_JSON)
-    data = cur.fetchall()
+    data = list(map(lambda x: x[0], cur.fetchall()))
     
     with open('links.json', 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
@@ -38,4 +38,4 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.run(main())  
+    asyncio.run(main()) 

@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "ringzero",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LiminalCrab/ringzero.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LiminalCrab/ringzero/issues"
+  },
+  "homepage": "https://github.com/LiminalCrab/ringzero#readme",
+  "description": ""
+}

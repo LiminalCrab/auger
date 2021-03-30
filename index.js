@@ -1,11 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 3050
+var path = require('path');
 
-//Import routes
-const aggreRoute = require('./routes/aggre');
 
-app.use('/aggre', aggreRoute);
 
 // ROUTES
 app.get('/', (req, res) => {
@@ -13,7 +11,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/aggre', (req, res) => {
-  res.send('AGGRE IS POINTING BACK TO INDEX.JS');
+  res.sendFile(path.join(__dirname + '/index.html'));
 })
 
 app.listen(port, () => {

@@ -1,12 +1,17 @@
-const fs = require('fs')
+fetch("./data/links.json")
+    .then(response => response.json())
+    .then(data => {
+        sendData(data);
+    });
 
-// getting json data
-function getLinks(){ 
-    fs.readFile('./data/links.json', 'utf8', (err, fsToString) => {
-    let data = JSON.parse(fsToString);
-    let links = data.map(link => (link.date, link.url, link.title));
-    return links;
-    }); 
+
+function sendData(data){
+    let mainContent = document.getElementById("content");
+    for (var i = 0; i < data.length; i++){
+        let div = document.createElement("div");
+        div.innerHTML = `<p><a href="${data[i].url}">${data[i].title}</a>
+        <span>${data[i].date}</span></p>`
+        mainContent.appendChild(div);
+    }
 }
 
-getLinks();

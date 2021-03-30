@@ -1,6 +1,22 @@
-const fs = require('fs')
+const express = require('express')
+const app = express()
+const port = 3050
 
-fs.readFile('./data/links.json', 'utf8', (err, fsToString) => {
-    let data = JSON.parse(fsToString);
-    console.log(data.map(link => console.log(link[0].date, link[0].url, link[0].title)))
-});
+const aggreRoute = require('./routes/aggre');
+
+//Import routes
+
+
+// ROUTES
+app.get('/', (req, res) => {
+  res.send('af')
+})
+
+app.get('/aggre', (req, res) => {
+  res.send('the aggregator')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+

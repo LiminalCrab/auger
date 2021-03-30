@@ -2,8 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/aggre', (req, res) => {
-    res.send('Excellent')
+router.get('/', (req, res) => {
+    res.send('ROUTES SCREAMING INTO MY EAR');
+});
+
+router.post('/',  (req, res) => {
+    console.log("AHHH")
 })
 
 module.exports = router;

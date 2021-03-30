@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/aggre', (req, res) => {
-  res.send('the aggregator');
+  res.send('AGGRE IS POINTING BACK TO INDEX.JS');
 })
 
 app.listen(port, () => {

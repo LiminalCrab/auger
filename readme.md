@@ -15,7 +15,7 @@ You can see the database schema [here](https://github.com/LiminalCrab/fucking-bu
 
 # data/pull.py
 
-This is the start point for the backend. This is where all the links are scraped initially. This is the first script ran by Cron. The links here are only scraped from their **titles** and **urls** in this script and they're submitted to a postgres database.
+This is the start point for the backend. This is the first script ran by Cron. The links here are only scraped from their **titles** and **urls** and they're submitted to a postgres database.
 
 # data/date.py 
 This is the second script that Cron runs seconds after pull.py,

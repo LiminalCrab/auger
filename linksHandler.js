@@ -1,17 +1,14 @@
-fetch("./data/links.json")
-    .then(response => response.json())
-    .then(data => {
-        sendData(data);
-    });
+fetch('./data/links.json')
+  .then(response => response.json())
+  .then(data => {
+    sendData(data)
+  })
 
-
-function sendData(data){
-    let mainContent = document.getElementById("content");
-    for (var i = 0; i < data.length; i++){
-        let div = document.createElement("div");
-        div.innerHTML = `<p><a href="${data[i].url}">${data[i].title}</a>
-        <span>${data[i].date}</span></p>`
-        mainContent.appendChild(div);
-    }
+function sendData (data) {
+  const mainContent = document.getElementById('content')
+  for (let i = 0; i < data.length; i++) {
+    const div = document.createElement('li')
+    div.innerHTML = `<a href="${data[i].url}">${data[i].title}</a>, <date>${data[i].date}</date>`
+    mainContent.appendChild(div)
+  }
 }
-

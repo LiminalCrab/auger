@@ -37,3 +37,8 @@ This is where all the site json data submitted by order.py is held, and this is 
 
 Yeah this just fetches the json links and formats them before populated index.html, I also plan on replacing this, but FOR NOW IT WORKS. 
 
+### TO DO
+
+Replace the JSON and linkHandler.js with Jinja
+Update the git with the cron file and necessary shell scripts.
+deploy 

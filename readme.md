@@ -40,5 +40,8 @@ Yeah this just fetches the json links and formats them before populated index.ht
 ### TO DO
 
 Replace the JSON and linkHandler.js with Jinja
+
 Update the git with the cron file and necessary shell scripts.
+
 deploy 
+

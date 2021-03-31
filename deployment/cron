@@ -1,0 +1,8 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+   
+57 7 * * * /usr/bin/python3 /home/USERNAME/www/auggar/data/pull.py
+58 7 * * * /usr/bin/python3 /home/USERNAME/www/auggar/data/date.py
+59 7 * * * /usr/bin/python3 /home/USERNAME/www/auggar/data/matchdrop.py
+0 8 * * * /usr/bin/python3 /home/USERNAME/www/auggar/data/order.py 
+0 8 * * * sh /home/USERNAME/www/fucking-bulletproof/bulletproof.sh

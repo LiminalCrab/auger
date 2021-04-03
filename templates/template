@@ -17,9 +17,9 @@
     </header>
     <main>
         <ul class="flow-3" id="content">
-				{{% for i in data %}}
+				{% for i in data %}
 				<li><a href={{i['link']}}>{{i['title']}}</a><date>{{i['date']}}</date></li>
-				{{% endfor %}}
+				{% endfor %}
 				</ul>
     </main>
 </body>

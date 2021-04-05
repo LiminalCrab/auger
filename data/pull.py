@@ -2,6 +2,7 @@ import asyncio
 import httpx
 import xml.etree.ElementTree as ET
 import psycopg2
+import pdb
 
 #open initial connection
 conn = psycopg2.connect("")
@@ -54,15 +55,16 @@ async def main():
     async with httpx.AsyncClient() as client:
         for url in URLS:
             response = await client.get(url)
+
             try:
                 root = ET.fromstring(response.text)
             except:
                 continue
-
             try:
                 links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
+
             except IndexError:
-                print("URL {} is fucked up.".format(url))
+                links = [x for x in root if x.tag in ("entry", "item")[1]]
                 continue
 
             for link in links:
@@ -77,7 +79,7 @@ async def main():
                     print("committed")
                     print(f"{title} and {link_url} submitted to database.")
                     
-    cur.execute("SELECT * FROM posts;")
+    #cur.execute("SELECT * FROM posts;")
     rows = cur.fetchall()
     for r in rows:
         print(f"{r[0]} and {r[1]}")

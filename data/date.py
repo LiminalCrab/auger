@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 
 #open initial connection
 conn = psycopg2.connect("")
+conn.set_session(autocommit=True)
 
 #open initial cursor
 cur = conn.cursor()
@@ -53,6 +54,8 @@ URLS =  ["https://bismuth.garden/feed.xml",
 async def main():
 
     conn = psycopg2.connect("")
+    conn.set_session(autocommit=True)
+
     
     async with httpx.AsyncClient() as client:
         for feed in URLS:

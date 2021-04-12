@@ -62,30 +62,29 @@ async def main():
             except:
                 continue
             try:
-                if len(root.tag.split("}")) == 2:
-                    links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
-                else:
-                    links = [x for x in root[0] if x.tag in ("entry", "item")]  
+                links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
             except IndexError:
-                print("REJECTED")          
-                continue
+                links = [x for x in root[0] if x.tag in ("entry", "item")]  
 
             for link in links:
+                try:
                     title = [x.text for x in link if x.tag.split("}")[1] == "title"]
                     link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
-                    ns_titles = [x.text for x in link if x.tag.split("}")[0] == "title"]
-                    ns_links = [x.text for x in link if x.tag.split("}")[1] == "links"]
-                 
+                    print("LINK_URL", link_url)
                     if title and link_url:
                         print("Found {} with HREF {}".format(title, link_url))
-                    else:
-                        print("Found NAMESPACE {} with HREF {}".format(ns_titles, ns_links))
-                        #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                                #(title[0], link_url[0]))
-                        #conn.commit()
-                        #print("committed")
-                        #print(f"{title} and {link_url} submitted to database.")
-                        
+                except IndexError:
+                    print("EXCEPTION", link[0])
+                    title = [x.text for x in link[0] if x.tag  == "title"]
+                    link_url = [x.attrib["href"] for x in link[0] if x.tag == "link"]
+                    if title and link_url:
+                        print("Found {} with HREF {}".format(title, link_url))
+                    #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                            #(title[0], link_url[0]))
+                    #conn.commit()
+                    #print("committed")
+                    #print(f"{title} and {link_url} submitted to database.")
+                    
     #cur.execute("SELECT * FROM posts;")
     #rows = cur.fetchall()
     #for r in rows:

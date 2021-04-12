@@ -74,9 +74,11 @@ async def main():
                     if title and link_url:
                         print("Found {} with HREF {}".format(title, link_url))
                 except IndexError:
-                    print("EXCEPTION", link[0])
-                    title = [x.text for x in link[0] if x.tag  == "title"]
-                    link_url = [x.attrib["href"] for x in link[0] if x.tag == "link"]
+                    for x in links:
+                        print("X TEXT:{} X LINKS: {}".format(x[0].text, x[2].tag))
+                    title = [x[0].text for x in link[0] if x[0].tag  == "title"]
+                    print("EXCEPTION TITLE:", title)
+                    link_url = [x[0] for x in link[0] if x.tag == "link"]
                     if title and link_url:
                         print("Found {} with HREF {}".format(title, link_url))
                     #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 

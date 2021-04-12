@@ -23,7 +23,6 @@ URLS =  [
         "https://rosano.ca/feed",
         "https://teknari.com/feed.xml",
         "https://serocell.com/feeds/serocell.xml",
-        "https://eli.li/feed.rss",
         "https://gueorgui.net/feed.xml",
         "https://resevoir.net/rss.xml",
         "https://sixey.es/feed.xml",
@@ -70,15 +69,23 @@ async def main():
                 try:
                     title = [x.text for x in link if x.tag.split("}")[1] == "title"]
                     link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
+                    
                     print("LINK_URL", link_url)
+                    
                     if title and link_url:
                         print("Found {} with HREF {}".format(title, link_url))
+                        
                 except IndexError:
+                    
                     for x in links:
-                        print("X TEXT:{} X LINKS: {}".format(x[0].text, x[2].tag))
-                    title = [x[0].text for x in link[0] if x[0].tag  == "title"]
+                        print("X TEXT:{} X LINKS: {}".format(x[0].text, x.findtext('link')))
+                        
+                    title = [x[0].text for x in link[0]]
                     print("EXCEPTION TITLE:", title)
-                    link_url = [x[0] for x in link[0] if x.tag == "link"]
+                    
+                    link_url = [x.findtext('link') for x in link[0] if x.tag == "link"]
+                    print("EXCEPTION URL:", link_url)
+                    
                     if title and link_url:
                         print("Found {} with HREF {}".format(title, link_url))
                     #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 

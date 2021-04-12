@@ -24,7 +24,6 @@ URLS =  [
         "https://teknari.com/feed.xml",
         "https://serocell.com/feeds/serocell.xml",
         "https://gueorgui.net/feed.xml",
-        "https://resevoir.net/rss.xml",
         "https://sixey.es/feed.xml",
         "https://icyphox.sh/blog/feed.xml",
         "https://royniang.com/rss.xml",
@@ -77,14 +76,15 @@ async def main():
                         
                 except IndexError:
                     
-                    for x in links:
-                        print("X TEXT:{} X LINKS: {}".format(x[0].text, x.findtext('link')))
-                        
-                    title = [x[0].text for x in link[0]]
-                    print("EXCEPTION TITLE:", title)
+                    #for x in links:
+                        #print("X TEXT:{} X LINKS: {} X ROOT: {}".format(x[0].text, x.findtext('link'), links[0]))
+                        #print("TRUE FALSE:{}".format(x[0].tag == "title"))
+                    #print("link: {}, LINKS: {}".format(link[0], links))
+                    title = [link[0].text]
+                    #print("EXCEPTION TITLE:", title)
                     
-                    link_url = [x.findtext('link') for x in link[0] if x.tag == "link"]
-                    print("EXCEPTION URL:", link_url)
+                    link_url = [link.findtext('link')]
+                    #print("EXCEPTION URL:", link_url)
                     
                     if title and link_url:
                         print("Found {} with HREF {}".format(title, link_url))

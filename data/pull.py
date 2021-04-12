@@ -1,14 +1,15 @@
 import asyncio
 import httpx
+import re
 import xml.etree.ElementTree as ET
 import psycopg2
 import pdb
 
 #open initial connection
-conn = psycopg2.connect("")
+#conn = psycopg2.connect("")
 
 #open initial cursor
-cur = conn.cursor()
+#cur = conn.cursor()
 
 URLS =  [
         "https://bismuth.garden/feed.xml",
@@ -61,30 +62,36 @@ async def main():
             except:
                 continue
             try:
-                links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
-
+                if len(root.tag.split("}")) == 2:
+                    links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
+                else:
+                    links = [x for x in root[0] if x.tag in ("entry", "item")]  
             except IndexError:
-                links = [x for x in root if x.tag in ("entry", "item")[1]]
+                print("REJECTED")          
                 continue
 
             for link in links:
-                title = [x.text for x in link if x.tag.split("}")[1] == "title"]
-                link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
-
-                if title and link_url:
-                    print("Found {} with HREF {}".format(title, link_url))
-                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                               (title[0], link_url[0]))
-                    conn.commit()
-                    print("committed")
-                    print(f"{title} and {link_url} submitted to database.")
-                    
+                    title = [x.text for x in link if x.tag.split("}")[1] == "title"]
+                    link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
+                    ns_titles = [x.text for x in link if x.tag.split("}")[0] == "title"]
+                    ns_links = [x.text for x in link if x.tag.split("}")[1] == "links"]
+                 
+                    if title and link_url:
+                        print("Found {} with HREF {}".format(title, link_url))
+                    else:
+                        print("Found NAMESPACE {} with HREF {}".format(ns_titles, ns_links))
+                        #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                #(title[0], link_url[0]))
+                        #conn.commit()
+                        #print("committed")
+                        #print(f"{title} and {link_url} submitted to database.")
+                        
     #cur.execute("SELECT * FROM posts;")
-    rows = cur.fetchall()
-    for r in rows:
-        print(f"{r[0]} and {r[1]}")
-    cur.close()
-    conn.close()  
+    #rows = cur.fetchall()
+    #for r in rows:
+        #print(f"{r[0]} and {r[1]}")
+    #cur.close()
+    #conn.close()  
 
 if __name__ == '__main__':
     asyncio.run(main())

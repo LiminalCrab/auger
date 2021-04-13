@@ -5,6 +5,10 @@ import xml.etree.ElementTree as ET
 import psycopg2
 import pdb
 
+#[CURRENT ISSUES]
+#httpx likes to randomly timeout, this is going to cause problems in the future.
+#I need to figure out if theres a certain ttl that can be handled in this code.
+
 #open initial connection
 #conn = psycopg2.connect("")
 
@@ -53,12 +57,22 @@ URLS =  [
 async def main():
     async with httpx.AsyncClient() as client:
         for url in URLS:
-            response = await client.get(url)
-
+            try: 
+                response = await client.get(url, timeout=30.0)
+                
+            except httpx.RequestError as exc:
+                print(f"An error occurred while requesting {exc.request.url!r}.")
+    
             try:
+                #give root a body of XML as a string.
                 root = ET.fromstring(response.text)
             except:
                 continue
+            
+            #there is a variety of XML namespaces we have to deal with, the ones that
+            #are not handled in the first try will get caught in the exception and 
+            #and sent to the code in the next for loops exception. They required extra
+            #indexing. 
             try:
                 links = [x for x in root if x.tag.split("}")[1] in ("entry", "item")]
             except IndexError:
@@ -80,24 +94,32 @@ async def main():
                         #print("X TEXT:{} X LINKS: {} X ROOT: {}".format(x[0].text, x.findtext('link'), links[0]))
                         #print("TRUE FALSE:{}".format(x[0].tag == "title"))
                     #print("link: {}, LINKS: {}".format(link[0], links))
-                    title = [link[0].text]
+                    
+                    #NoneTypes keep fucking with this, so we needed to get rid of them. 
+                    #We have to sort out which links are providing nonetypes later if I have this right.
+                    if link is not None:
+                        title = [link[0].text]
+                        link_url = [link.findtext('link')]
+                    else:
+                        print(f"IS NONE: {link} and {link_url} ")
                     #print("EXCEPTION TITLE:", title)
                     
-                    link_url = [link.findtext('link')]
                     #print("EXCEPTION URL:", link_url)
                     
+                    #send to database.
                     if title and link_url:
-                        print("Found {} with HREF {}".format(title, link_url))
-                    #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                        print(f"STAGED FOR DATABASE: {title[0]} {link_url[0]}")
+                        #print("Found {} with HREF {}".format(title, link_url))
+                        #cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
                             #(title[0], link_url[0]))
-                    #conn.commit()
-                    #print("committed")
-                    #print(f"{title} and {link_url} submitted to database.")
-                    
+                        #conn.commit()
+                        print("committed")
+                        print(f"{title} and {link_url} submitted to database.")
+    #Let's see what the database has submitted to the table. PS it will return ALL items inside it.          
     #cur.execute("SELECT * FROM posts;")
     #rows = cur.fetchall()
     #for r in rows:
-        #print(f"{r[0]} and {r[1]}")
+        #print(f"{r[0]} and {r[1]}") 
     #cur.close()
     #conn.close()  
 

@@ -10,10 +10,6 @@ cur = conn.cursor()
 
 async def main():
     
-   # SELECT_ORDER_DATE_TO_JSON = '''
-   # SELECT host_title, post_url FROM posts ORDER BY post_date DESC
-   # '''
-   
     ORDER_BY_DATE_TO_JSON = '''
         SELECT 
             json_build_object(
@@ -32,7 +28,7 @@ async def main():
         json.dump(data, f, ensure_ascii=False, indent=4)
     
     
-    #conn.commit()
+    conn.commit()
     cur.close()
     conn.close()
 

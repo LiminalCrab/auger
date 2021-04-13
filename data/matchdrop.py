@@ -16,7 +16,7 @@ async def main():
             WINDOW w AS ( partition BY host_title, post_url
                 ORDER BY id)) t WHERE t.rnum > 1);
     '''
-    #Temporary fix that definitely will remain temporary, yes sir.
+
     delete_empty_dates = '''
     DELETE FROM posts WHERE post_date IS NULL;
     '''

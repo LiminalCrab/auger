@@ -17,12 +17,16 @@ async def main():
                 ORDER BY id)) t WHERE t.rnum > 1);
     '''
     #Temporary fix that definitely will remain temporary, yes sir.
-    delete_empty = '''
+    delete_empty_dates = '''
     DELETE FROM posts WHERE post_date IS NULL;
+    '''
+    delete_empty_urls = '''
+    DELETE FROM posts WHERE post_url IS NULL;
     '''
         
     cur.execute(dupes_del)   
-    cur.execute(delete_empty)
+    cur.execute(delete_empty_dates)
+    cur.execute(delete_empty_urls)
 
     conn.commit()
     cur.close()

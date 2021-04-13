@@ -5,11 +5,11 @@ import asyncio
 import xml.etree.ElementTree as ET
 
 #open initial connection
-#conn = psycopg2.connect("")
-#conn.set_session(autocommit=True)
+conn = psycopg2.connect("")
+conn.set_session(autocommit=True)
 
 #open initial cursor
-#cur = conn.cursor()
+cur = conn.cursor()
 
 URLS =  ["https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
@@ -23,7 +23,6 @@ URLS =  ["https://bismuth.garden/feed.xml",
         "https://teknari.com/feed.xml",
         "https://eli.li/feed.rss",
         "https://gueorgui.net/feed.xml",
-        "https://resevoir.net/rss.xml",
         "https://sixey.es/feed.xml",
         "https://icyphox.sh/blog/feed.xml",
         "https://royniang.com/rss.xml",
@@ -50,8 +49,8 @@ URLS =  ["https://bismuth.garden/feed.xml",
 
 async def main():
 
-    #conn = psycopg2.connect("")
-    #conn.set_session(autocommit=True)
+    conn = psycopg2.connect("")
+    conn.set_session(autocommit=True)
 
     
     async with httpx.AsyncClient() as client:
@@ -80,34 +79,27 @@ async def main():
                     link_url = [link.findtext("link")]
                     published_date = [link.findtext("published")]
                     updated_date = [link.findtext("updated")]
-                    pub_date = [link.findtext("pubDate")]                    
-                    
+                    pub_date = [link.findtext("pubDate")]                                       
 
                     #updated_date = [x.text for x in link if x.tag.split("}")[1] == "updated"]
                     #pub_date = [x.text for x in link if x.tag.split("}")[1] == "pubDate"]
-                    
-                    
-                    
-                
+                                  
                 if published_date and link_url:
                     print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date[0], link_url[0]))
-                    #cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (published_date[0], link_url[0]))
-                    #print(f"{link_url[0]} and {updated_date[0]} added to database.")
+                    cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (published_date[0], link_url[0]))
+                    print(f"{link_url[0]} and {updated_date[0]} added to database.")
                 if updated_date and link_url:
                     print("UPDATED DATE: updated tag found: {} at {}".format(updated_date[0], link_url[0]))                   
-                    #cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (updated_date[0], link_url[0]))
-                    #print(f"{link_url[0]} and {updated_date[0]} added to database.")
+                    cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (updated_date[0], link_url[0]))
+                    print(f"{link_url[0]} and {updated_date[0]} added to database.")
                 if pub_date and link_url:
                     print("PUBDATE: updated tag found: {} at {}".format(pub_date[0], link_url[0]))
-                    #cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (pub_date[0], link_url[0]))
-                    #print(f"{link_url[0]} and {updated_date[0]} added to database.")
-        
-                    
-                    
-                    
-        #conn.commit()
-        #cur.close()
-        #conn.close()
+                    cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (pub_date[0], link_url[0]))
+                    print(f"{link_url[0]} and {updated_date[0]} added to database.")
+                  
+        conn.commit()
+        cur.close()
+        conn.close()
             
             
 if __name__ == '__main__':

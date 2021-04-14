@@ -1,7 +1,7 @@
-### DOCUMENTATION
+# DOCUMENTATION
 
 
-## ABOUT
+### ABOUT
 Hosted on [www.sudogami.com](www.sudogami.com)
 
 TO DO list at the bottom.
@@ -16,38 +16,38 @@ You can see the database schema [here](https://github.com/LiminalCrab/fucking-bu
 
 ## CODE
 
-# data/pull.py
+### data/pull.py
 
 This is the start point for the backend. This is the first script ran by Cron. The links here are only scraped from their **titles** and **urls** and they're submitted to a postgres database.
 
-# data/date.py 
+### data/date.py 
 This is the second script that Cron runs seconds after pull.py,
 it's purpose is to simply scrape the dates from each article of each website in the urls array and submit it to the database. This is to take some of the load off of pull.py. 
 
-# data/matchdrop.py 
+### data/matchdrop.py 
 This is the third script that Cron runs seconds after date.py. 
 It's job is to look for any tables/rows that might be missing data or is a duplicate of something already stored and remove it from the database. I still have some work to do here, but for now it gets the job done.
 
-# data/order.py 
+### data/order.py 
 
 This is the last script ran by Cron, it sorts all the tables in the database by their dates in decending order and runs a postgres function that builds a json object. It then outputs this JSON data to a file called links.json. 
 
-# createHTML.py 
+### createHTML.py 
 
 This replaces the old linkhandler.js, and is responsible for populating the HTML with the data from the db, for now it's operating off the JSON file, but I'll fix that.
 
-# data/links.json
+### data/links.json
 
 This is where all the site json data submitted by order.py is held, and this is what is output to the frontend. I plan on replacing this in the future, but for now, it simply works.
 
 ## OUTDATED
 
-# linkhandler.js 
+### linkhandler.js 
 
 Yeah this just fetches the json links and formats them before populated index.html, I also plan on replacing this, but FOR NOW IT WORKS. 
 
 
-### TO DO
+# TO DO
 
 - [ ] Jinja implementation
     - [ ] Remove Javascript / JSON, allow the database to populate the html directly.

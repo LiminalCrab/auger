@@ -12,6 +12,10 @@ conn.set_session(autocommit=True)
 cur = conn.cursor()
 
 URLS =  [
+        "http://nonmateria.com/rss.xml",
+        "https://notes.neeasade.net/rss.xml",
+        "https://aless.co/rss.xml",
+        "https://writing.natwelch.com/feed.rss",
         "https://resevoir.net/rss.xml",
         "https://szymonkaliski.com/feed.xml",
         "https://xj-ix.luxe/feed.atom",
@@ -49,7 +53,6 @@ URLS =  [
         "https://milofultz.com/atom.xml",
         "https://wolfmd.me/feed.xml",
         "https://irimi.one/atom.xml",
-        "https://darch.dk/feed/page:feed.xml",
         "https://natehn.com/index.xml",
         "https://www.gr0k.net/blog/feed.xml",
         "https://tendigits.space/feed.xml",

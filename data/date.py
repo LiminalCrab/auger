@@ -96,7 +96,7 @@ async def main():
                 if published_date and link_url:
                     print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date[0], link_url[0]))
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (published_date[0], link_url[0]))
-                    print(f"{link_url[0]} and {updated_date[0]} added to database.")
+                    print(f"{link_url[0]} and {published_date[0]} added to database.")
                 if updated_date and link_url:
                     print("UPDATED DATE: updated tag found: {} at {}".format(updated_date[0], link_url[0]))                   
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (updated_date[0], link_url[0]))
@@ -104,7 +104,7 @@ async def main():
                 if pub_date and link_url:
                     print("PUBDATE: updated tag found: {} at {}".format(pub_date[0], link_url[0]))
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (pub_date[0], link_url[0]))
-                    print(f"{link_url[0]} and {updated_date[0]} added to database.")
+                    print(f"{link_url[0]} and {pub_date[0]} added to database.")
                   
         conn.commit()
         cur.close()

@@ -1,8 +1,9 @@
 ### DOCUMENTATION
 
-Okay not going to lie to you, I've never written documentation before and I have never actually collaborated with anyone on a project so I'm going to try my best here. This will be updated periodically as I remember more and more.
 
 ## ABOUT
+Hosted on [www.sudogami.com](www.sudogami.com)
+
 This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community.
 
 ## HOW DOES IT WORK?

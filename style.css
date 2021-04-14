@@ -1,9 +1,9 @@
 :root {
     --text: black;
     --background: white;
-    --cyan: #72dec2;
-    --cyan-light: #9ffce3;
-    --cyan-dark: #5aac96;
+    --cyan: #048361;
+    --cyan-light: #39ad8e;
+    --cyan-dark: #3b695d;
     --ratio: 1.5;
     --s-5: calc(var(--s-4) / var(--ratio));
     --s-4: calc(var(--s-3) / var(--ratio));
@@ -28,6 +28,7 @@
     :root {
         --text: white;
         --background: black;
+        --cyan: grey;
     }
 
     header svg,

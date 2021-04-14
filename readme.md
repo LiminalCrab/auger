@@ -4,6 +4,8 @@
 ## ABOUT
 Hosted on [www.sudogami.com](www.sudogami.com)
 
+TO DO list at the bottom.
+
 This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community.
 
 ## HOW DOES IT WORK?
@@ -30,19 +32,25 @@ It's job is to look for any tables/rows that might be missing data or is a dupli
 
 This is the last script ran by Cron, it sorts all the tables in the database by their dates in decending order and runs a postgres function that builds a json object. It then outputs this JSON data to a file called links.json. 
 
+# createHTML.py 
+
+This replaces the old linkhandler.js, and is responsible for populating the HTML with the data from the db, for now it's operating off the JSON file, but I'll fix that.
+
 # data/links.json
 
 This is where all the site json data submitted by order.py is held, and this is what is output to the frontend. I plan on replacing this in the future, but for now, it simply works.
+
+## OUTDATED
 
 # linkhandler.js 
 
 Yeah this just fetches the json links and formats them before populated index.html, I also plan on replacing this, but FOR NOW IT WORKS. 
 
+
 ### TO DO
 
-Replace the JSON and linkHandler.js with Jinja
-
-Update the git with the cron file and necessary shell scripts.
-
-deploy 
-
+- [ ] Jinja implementation
+    - [ ] Remove Javascript / JSON, allow the database to populate the html directly.
+    - [ ] make it so their website favicons show up beside their articles
+    - [ ] limit posts per page to 50 or 100.
+    - [ ] add post summaries. 

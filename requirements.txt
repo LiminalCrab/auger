@@ -1,2 +1,4 @@
 jinja2
-
+httpx
+asyncio
+psycopg2-binary

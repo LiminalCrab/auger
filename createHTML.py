@@ -23,7 +23,7 @@ def loadData():
     return data_file
 
 def makeHTML(template, data):
-    filename = os.path.join(os.getcwd(), 'index-jinja.html')
+    filename = os.path.join(os.getcwd(), 'index.html')
     with open(filename, 'w+') as fw:
         fw.write(template.render(data=data))
 

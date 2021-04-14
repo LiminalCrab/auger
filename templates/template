@@ -16,7 +16,11 @@
         <p>Search with <a href="https://lieu.cblgh.org/">Lieu</a>.</p>
     </header>
     <main>
-        <ul class="flow-3" id="content"></ul>
+        <ul class="flow-3" id="content">
+				{% for i in data %}
+				<li><a href={{i['link']}}>{{i['title']}}</a><date>{{i['date']}}</date></li>
+				{% endfor %}
+				</ul>
     </main>
 </body>
 </html>

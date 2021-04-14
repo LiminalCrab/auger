@@ -14,6 +14,15 @@ conn = psycopg2.connect("")
 cur = conn.cursor()
 
 URLS =  [
+        "https://notes.neeasade.net/rss.xml",
+        "https://aless.co/rss.xml",
+        "https://writing.natwelch.com/feed.rss",
+        "https://resevoir.net/rss.xml",
+        "https://szymonkaliski.com/feed.xml",
+        "https://xj-ix.luxe/feed.atom",
+        "http://nonmateria.com/rss.xml",
+        "https://oddworlds.org/rss.xml",
+        "https://chad.is/rss.xml",
         "https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
         "https://now.lectronice.com/feed.xml",
@@ -88,7 +97,6 @@ async def main():
                         print("Found {} with HREF {}".format(title, link_url))
                         
                 except IndexError:
-                    
                     #NoneTypes keep fucking with this, so we needed to get rid of them. 
                     #We have to sort out which links are providing nonetypes later if I have this right.
                     

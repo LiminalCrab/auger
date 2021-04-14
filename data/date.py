@@ -11,7 +11,14 @@ conn.set_session(autocommit=True)
 #open initial cursor
 cur = conn.cursor()
 
-URLS =  ["https://bismuth.garden/feed.xml",
+URLS =  [
+        "https://resevoir.net/rss.xml",
+        "https://szymonkaliski.com/feed.xml",
+        "https://xj-ix.luxe/feed.atom",
+        "http://nonmateria.com/rss.xml",
+        "https://oddworlds.org/rss.xml",
+        "https://chad.is/rss.xml",
+        "https://bismuth.garden/feed.xml",
         "https://xvw.github.io/atom.xml",
         "https://now.lectronice.com/feed.xml",
         "https://longest.voyage/index.xml",
@@ -21,7 +28,7 @@ URLS =  ["https://bismuth.garden/feed.xml",
         "https://phse.net/post/index.xml",
         "https://rosano.ca/feed",
         "https://teknari.com/feed.xml",
-        "https://eli.li/feed.rss",
+        "https://serocell.com/feeds/serocell.xml",
         "https://gueorgui.net/feed.xml",
         "https://sixey.es/feed.xml",
         "https://icyphox.sh/blog/feed.xml",
@@ -40,6 +47,7 @@ URLS =  ["https://bismuth.garden/feed.xml",
         "https://inqlab.net/posts.xml",
         "https://metasyn.pw/rss.xml",
         "https://milofultz.com/atom.xml",
+        "https://wolfmd.me/feed.xml",
         "https://irimi.one/atom.xml",
         "https://darch.dk/feed/page:feed.xml",
         "https://natehn.com/index.xml",
@@ -51,7 +59,6 @@ async def main():
 
     conn = psycopg2.connect("")
     conn.set_session(autocommit=True)
-
     
     async with httpx.AsyncClient() as client:
         for feed in URLS:
@@ -75,15 +82,16 @@ async def main():
                     link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
                     
                 except IndexError:
-                    
-                    link_url = [link.findtext("link")]
-                    published_date = [link.findtext("published")]
-                    updated_date = [link.findtext("updated")]
-                    pub_date = [link.findtext("pubDate")]                                       
+                        link_url = [link.findtext("link")]
+                        published_date = [link.findtext("published")]
+                        updated_date = [link.findtext("updated")]
+                        pub_date = [link.findtext("pubDate")]
+                        
+                        #yeah we're gonna throw invalid dates with the NULL post at the bottom LOL
+                        if pub_date[0] == "Invalid Date":
+                            pub_date = ['0001-01-01']
+                            print(f"INVALID DATE FIXED WITH:{pub_date[0]} at {link_url[0]}")
 
-                    #updated_date = [x.text for x in link if x.tag.split("}")[1] == "updated"]
-                    #pub_date = [x.text for x in link if x.tag.split("}")[1] == "pubDate"]
-                                  
                 if published_date and link_url:
                     print("PUBLISHED DATE: published date tag found: {} at {}".format(published_date[0], link_url[0]))
                     cur.execute("UPDATE posts SET post_date = (%s) WHERE post_url = (%s);", (published_date[0], link_url[0]))

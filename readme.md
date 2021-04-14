@@ -54,3 +54,12 @@ Yeah this just fetches the json links and formats them before populated index.ht
     - [ ] make it so their website favicons show up beside their articles
     - [ ] limit posts per page to 50 or 100.
     - [ ] add post summaries. 
+- [ ] POSTGRESQL
+    - [ ] add row for post_summaries, url_favicon, url_name.
+- [ ] pull.py
+    - [ ] Scrape for favicons.
+    - [ ] Scrape for post_summaries and only collect (250 characters?)
+- [ ] order.py
+    - [ ] decouple from JSON
+    - [ ] direct db output to html.
+    - [ ] this might actually become obsolete.

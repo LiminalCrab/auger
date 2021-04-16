@@ -71,12 +71,18 @@ async def main():
 
                 if title and link_url:
                     print("Found {} with HREF {}".format(title, link_url))
-                    cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                               (title[0], link_url[0]))
-                    conn.commit()
+                    try:
+                        cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                   (title[0], link_url[0]))
+                        conn.commit()
+                    except: # TODO: Find the exact exception
+                        create_database()
+                        cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                   (title[0], link_url[0]))
+                        conn.commit()
                     print("committed")
                     print(f"{title} and {link_url} submitted to database.")
-                    
+                        
     cur.execute("SELECT * FROM posts;")
     rows = cur.fetchall()
     for r in rows:

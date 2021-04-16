@@ -84,5 +84,13 @@ async def main():
     cur.close()
     conn.close()  
 
+def create_database():
+    tableName = "posts"
+    createTable = "create table " + tableName + "(id bigserial, host_title TEXT, post_url TEXT, post_date DATE)"
+
+    curr.execute(createTable)
+    conn.commit()
+    return
+
 if __name__ == '__main__':
     asyncio.run(main())

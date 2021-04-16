@@ -1,4 +1,5 @@
 from jinja2 import Environment, FileSystemLoader 
+import psycopg2
 import os
 import json
 
@@ -9,21 +10,33 @@ def loadTemplate():
     return template
 
 def loadData():
-    ''' 
-        aim to deprecate this function or load directly from psycog2
+    # move this into a psycopg2 module?
+    #open initial connection
+    conn = psycopg2.connect("")
+    #open initial cursor
+    cur = conn.cursor()
+
+    ORDER_BY_DATE_TO_JSON = '''
+        SELECT 
+            json_build_object(
+                'id', posts.id,
+                'title', posts.host_title,
+                'url', posts.post_url,
+                'date', posts.post_date
+            ) FROM posts ORDER BY post_date DESC;
     '''
-    try:
-        # try an environment var
-        data_file = os.environ['data']
-    except KeyError:
-        # defaul to already existing location
-        data_file = 'data/links.json'
-    with open(data_file, 'r') as dfr:
-         data_file = json.load(dfr)
-    return data_file
+   
+    print("ORDER.PY: SORTING DATES")
+    cur.execute(ORDER_BY_DATE_TO_JSON)
+    data = list(map(lambda x: x[0], cur.fetchall()))
+    
+    cur.close()
+    conn.close()
+    print(data)
+    return data
 
 def makeHTML(template, data):
-    filename = os.path.join(os.getcwd(), 'index-jinja.html')
+    filename = os.path.join(os.getcwd(), 'index.html')
     with open(filename, 'w+') as fw:
         fw.write(template.render(data=data))
 

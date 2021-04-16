@@ -85,43 +85,37 @@ async def main():
                 links = [x for x in root[0] if x.tag in ("entry", "item")]  
 
             for link in links:
-                try:
-                    title = [x.text for x in link if x.tag.split("}")[1] == "title"]
-                    link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
-                    
-                    print("LINK_URL", link_url)
-                    
-                    if title and link_url:
-                        print("Found {} with HREF {}".format(title, link_url))
-                        
-                except IndexError:
-                    #NoneTypes keep fucking with this, so we needed to get rid of them. 
-                    #We have to sort out which links are providing nonetypes later if I have this right.
-                    
-                    if link is not None:
-                        title = [link[0].text]
-                        link_url = [link.findtext('link')]
-                    else:
-                        print(f"IS NONE: {link} and {link_url} ")
-                    
-                    #send to database.
-                    if title and link_url:
-                        print(f"STAGED FOR DATABASE: {title[0]} {link_url[0]}")
-                        print("Found {} with HREF {}".format(title, link_url))
+                title = [x.text for x in link if x.tag.split("}")[1] == "title"]
+                link_url = [x.attrib["href"] for x in link if x.tag.split("}")[1] == "link"]
+
+                if title and link_url:
+                    print("Found {} with HREF {}".format(title, link_url))
+                    try:
                         cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
-                            (title[0], link_url[0]))
+                                   (title[0], link_url[0]))
                         conn.commit()
-                        print("committed")
-                        print(f"{title} and {link_url} submitted to database.")
-                        
-    #Let's see what the database has submitted to the table. PS it will return ALL items inside it. 
-             
+                    except: # TODO: Find the exact exception
+                        create_database()
+                        cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                                   (title[0], link_url[0]))
+                        conn.commit()
+                    print("committed")
+                    print(f"{title} and {link_url} submitted to database.")
+
     cur.execute("SELECT * FROM posts;")
     rows = cur.fetchall()
     for r in rows:
         print(f"{r[0]} and {r[1]}") 
     cur.close()
     conn.close()  
+
+def create_database():
+    tableName = "posts"
+    createTable = "create table " + tableName + "(id bigserial, host_title TEXT, post_url TEXT, post_date DATE)"
+
+    curr.execute(createTable)
+    conn.commit()
+    return
 
 if __name__ == '__main__':
     asyncio.run(main())

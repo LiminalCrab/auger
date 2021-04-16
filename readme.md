@@ -1,8 +1,11 @@
-### DOCUMENTATION
+# DOCUMENTATION
 
-Okay not going to lie to you, I've never written documentation before and I have never actually collaborated with anyone on a project so I'm going to try my best here. This will be updated periodically as I remember more and more.
 
-## ABOUT
+### ABOUT
+Hosted on [www.sudogami.com](www.sudogami.com)
+
+TO DO list at the bottom.
+
 This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community.
 
 ## HOW DOES IT WORK?
@@ -13,33 +16,37 @@ You can see the database schema [here](https://github.com/LiminalCrab/fucking-bu
 
 ## CODE
 
-# data/pull.py
-
+### data/pull.py
 This is the start point for the backend. This is the first script ran by Cron. The links here are only scraped from their **titles** and **urls** and they're submitted to a postgres database.
 
-# data/date.py 
+### data/date.py 
 This is the second script that Cron runs seconds after pull.py,
 it's purpose is to simply scrape the dates from each article of each website in the urls array and submit it to the database. This is to take some of the load off of pull.py. 
 
-# data/matchdrop.py 
+### data/matchdrop.py 
 This is the third script that Cron runs seconds after date.py. 
 It's job is to look for any tables/rows that might be missing data or is a duplicate of something already stored and remove it from the database. I still have some work to do here, but for now it gets the job done.
+This script returns an exception if there are no duplicates.
 
-# data/order.py 
+### createHTML.py 
+This replaces the old linkhandler.js, and is responsible for populating the HTML with the data from the db.
 
-This is the last script ran by Cron, it sorts all the tables in the database by their dates in decending order and runs a postgres function that builds a json object. It then outputs this JSON data to a file called links.json. 
+# TO DO
 
-# data/links.json
-
-This is where all the site json data submitted by order.py is held, and this is what is output to the frontend. I plan on replacing this in the future, but for now, it simply works.
-
-# linkhandler.js 
-
-Yeah this just fetches the json links and formats them before populated index.html, I also plan on replacing this, but FOR NOW IT WORKS. 
-
-### TO DO
-
-Update the git with the cron file and necessary shell scripts.
-
-deploy 
-
+- [X] Jinja implementation
+    - [X] Remove Javascript / JSON, allow the database to populate the html directly.
+    - [ ] make it so their website favicons show up beside their articles
+    - [ ] limit posts per page to 50 or 100.
+    - [ ] add post summaries. 
+- [ ] POSTGRESQL
+    - [ ] add row for post_summaries, url_favicon, url_name.
+- [ ] pull.py
+    - [ ] Scrape for favicons.
+    - [ ] Scrape for post_summaries and only collect (250 characters?)
+- [X] order.py
+    - [ ] decouple from JSON
+    - [ ] direct db output to html.
+    - [X] this might actually become obsolete.
+- [ ] Docker
+    - [ ] Create a Dockerfile
+    - [ ] Have a run script to output the HTML file

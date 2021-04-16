@@ -9,6 +9,7 @@ cur = conn.cursor()
 
 async def main():
     
+    #this might be causing some problems.
     dupes_del = '''
         DELETE FROM posts
         WHERE id IN (

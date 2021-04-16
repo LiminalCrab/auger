@@ -11,6 +11,7 @@ conn.set_session(autocommit=True)
 #open initial cursor
 cur = conn.cursor()
 
+#replace this with a different file...
 URLS =  [
         "http://nonmateria.com/rss.xml",
         "https://notes.neeasade.net/rss.xml",
@@ -58,6 +59,7 @@ URLS =  [
 
 async def main():
 
+#probably don't need two of these, should test which one works better later.
     conn = psycopg2.connect("")
     conn.set_session(autocommit=True)
     
@@ -89,6 +91,7 @@ async def main():
                         pub_date = [link.findtext("pubDate")]
                         
                         #yeah we're gonna throw invalid dates with the NULL post at the bottom LOL
+                        #fix ya' XML.
                         if pub_date[0] == "Invalid Date":
                             pub_date = ['0001-01-01']
                             print(f"INVALID DATE FIXED WITH:{pub_date[0]} at {link_url[0]}")

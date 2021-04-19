@@ -1,6 +1,13 @@
 from jinja2 import Environment, FileSystemLoader 
 import os
 import json
+import psycopg2
+
+#open initial connection
+conn = psycopg2.connect("")
+
+#open initial cursor
+cur = conn.cursor()
 
 def loadTemplate():
     templates_dir = os.path.join(os.getcwd(), 'templates')
@@ -9,9 +16,20 @@ def loadTemplate():
     return template
 
 def loadData():
+    try:
+        print("TEST")
+
+    except KeyError:
+        print("ERROR")
+        
+    #Let's depreciate.
+    
+    
+    
+    
     ''' 
         aim to deprecate this function or load directly from psycog2
-    '''
+
     try:
         # try an environment var
         data_file = os.environ['data']
@@ -21,7 +39,7 @@ def loadData():
     with open(data_file, 'r') as dfr:
          data_file = json.load(dfr)
     return data_file
-
+'''
 def makeHTML(template, data):
     filename = os.path.join(os.getcwd(), 'index.html')
     with open(filename, 'w+') as fw:

@@ -50,7 +50,7 @@ Yeah this just fetches the json links and formats them before populated index.ht
 # TO DO
 
 - [ ] Jinja implementation
-    - [ ] Remove Javascript / JSON, allow the database to populate the html directly.
+    - [X] Remove Javascript / JSON, allow the database to populate the html directly.
     - [ ] make it so their website favicons show up beside their articles
     - [ ] limit posts per page to 50 or 100.
     - [ ] add post summaries. 
@@ -59,7 +59,7 @@ Yeah this just fetches the json links and formats them before populated index.ht
 - [ ] pull.py
     - [ ] Scrape for favicons.
     - [ ] Scrape for post_summaries and only collect (250 characters?)
-- [ ] order.py
+- [X] order.py
     - [ ] decouple from JSON
     - [ ] direct db output to html.
-    - [ ] this might actually become obsolete.
+    - [X] this might actually become obsolete.

@@ -6,7 +6,8 @@ from urls import URLS_HTML
 
 
 #[WHAT IS THIS]
-#Scrapes URLS_HTML for their favicon links using beautiful soup.
+#Scrapes URLS_HTML for their favicon links using beautiful soup. It's also where
+#we get the host_url for the database, kind of weird I know. 
 
 #open initial connection
 conn = psycopg2.connect("")
@@ -39,17 +40,19 @@ async def main():
                 else:
                     favi = f'{url.rstrip("/")}/favicon.ico'
                     
-                    #hmmmm
-                if favi == "./data/favicon.png":
-                    favi = f"{url}/data/favicon.png"
-                    
-                if favi == "data:,":
-                    favi = f"{url}/assets/anon.ico"
-                    
-                print(f"FAVICON FOUND: {favi} at {url}")
+                    if favi == "./data/favicon.png":
+                        favi = f"{url}/data/favicon.png"
+                    if favi == "data:,":
+                        favi = f"{url}/assets/anon.ico"
+                                       
+                #cur.execute("UPDATE posts SET site_favicon = (%s) WHERE site_url = (%s);", (favi, url))
+                #conn.commit()
                 
             except IndexError:
                 print("Exception caught second try.")
+                
+    cur.close()
+    conn.close()
                 
 if __name__ == '__main__':
     asyncio.run(main())

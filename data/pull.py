@@ -1,12 +1,15 @@
 import asyncio
 import httpx
-import xml.etree.ElementTree as ET
 import psycopg2
+import xml.etree.ElementTree as ET
 from urls import URLS
+
+
 
 #[WHAT IS THIS]
 #It scrapes the URL's list for their rss XML feeds and commits them to a postgres db.
 #It also uses an exception to do this which is emphasiszed for flow control in Python. Wild right? 
+# XML is handled by Element Tree, and HTML is handled by BeautifulSoup.
 
 #open initial connection
 conn = psycopg2.connect("")
@@ -27,6 +30,7 @@ async def main():
             try:
                 #give root a body of XML as a string.
                 root = ET.fromstring(response.text)
+                                
             except:
                 continue
             
@@ -64,7 +68,7 @@ async def main():
                     if title and link_url:
                         print(f"STAGED FOR DATABASE: {title[0]} {link_url[0]}")
                         print("Found {} with HREF {}".format(title, link_url))
-                        cur.execute("INSERT INTO posts (host_title, post_url) VALUES (%s, %s)", 
+                        cur.execute("INSERT INTO posts (article_title, article_url) VALUES (%s, %s)", 
                             (title[0], link_url[0]))
                         conn.commit()
                         print("committed")

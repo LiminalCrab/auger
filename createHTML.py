@@ -21,8 +21,8 @@ def loadData():
     try:
         
         q_select = '''
-        SELECT host_title, post_url, to_char(post_date, 'DD Mon YYYY') 
-        FROM posts ORDER BY post_date DESC;
+        SELECT article_title, article_url, to_char(article_date, 'DD Mon YYYY') 
+        FROM posts ORDER BY article_date DESC;
         '''
         cur.execute(q_select)
         origin_data = [cur.fetchall()]

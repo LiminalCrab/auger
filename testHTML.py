@@ -10,7 +10,13 @@ conn = psycopg2.connect("")
 #open initial cursor
 cur = conn.cursor()
 
-def get_data():
+def loadTemplate():
+    templates_dir = os.path.join(os.getcwd(), 'templates')
+    env = Environment(loader = FileSystemLoader(templates_dir))
+    template = env.get_template('test_template')
+    return template
+    
+def loadData():
 # Let's grab some data from postgres
     try:
         
@@ -25,20 +31,22 @@ def get_data():
         
         print("EXCEPTION THROWN")
         print("ORIGIN DATA", origin_data)
+        print("Are you connected to a database?")
         
     for row in origin_data:
         
-        processing_data = [x for x in row]
-        print("DATA", processing_data)
+        processed_data = [x for x in row]
+        
+        return processed_data
     
         
-#def makeHTML(template, data):
-    #filename = os.path.join(os.getcwd(), 'test.html')
-    #with open(filename, 'w+') as fw:
-        #fw.write(template.render(data=data))
+def makeHTML(template, data):
+    filename = os.path.join(os.getcwd(), 'test.html')
+    with open(filename, 'w+') as fw:
+        fw.write(template.render(data=data))
 
 def main():
-    get_data()
+    makeHTML(loadTemplate(), loadData())
 
 if __name__ == '__main__':
     main()

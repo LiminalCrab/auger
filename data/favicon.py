@@ -28,6 +28,7 @@ async def main():
                 root = BeautifulSoup(response.text, features="lxml")
                 
             except:
+                print("Exception caught after second try.")
                 continue
             
             try:
@@ -38,16 +39,17 @@ async def main():
                 else:
                     favi = f'{url.rstrip("/")}/favicon.ico'
                     
-                #get_favi = [root.find("link", rel="icon")]
-                print(f"COMPLETE URL: {favi} at {url}")
+                    #hmmmm
+                if favi == "./data/favicon.png":
+                    favi = f"{url}/data/favicon.png"
+                    
+                if favi == "data:,":
+                    favi = f"{url}/assets/anon.ico"
+                    
+                print(f"FAVICON FOUND: {favi} at {url}")
                 
             except IndexError:
-                print("AAAH")
+                print("Exception caught second try.")
                 
-            
-            
-    
-    
-
 if __name__ == '__main__':
     asyncio.run(main())

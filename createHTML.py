@@ -17,14 +17,20 @@ def loadTemplate():
 
 def loadData():
     try:
-        print("TEST")
-
+        #we want ALL of the data. ALL OF IT.
+        get_post_url = ''' 
+        SELECT post_url FROM posts;
+        '''
+        get_host_title = '''
+        SELECT host_title FROM posts;
+        '''
+        get_post_date = '''
+        SELECT post_date FROM posts;
+        '''
     except KeyError:
         print("ERROR")
         
     #Let's depreciate.
-    
-    
     
     
     ''' 

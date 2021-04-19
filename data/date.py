@@ -3,6 +3,7 @@ import re
 import httpx
 import asyncio
 import xml.etree.ElementTree as ET
+from urls import URLS
 
 #open initial connection
 conn = psycopg2.connect("")
@@ -10,52 +11,6 @@ conn.set_session(autocommit=True)
 
 #open initial cursor
 cur = conn.cursor()
-
-#replace this with a different file...
-URLS =  [
-        "http://nonmateria.com/rss.xml",
-        "https://notes.neeasade.net/rss.xml",
-        "https://aless.co/rss.xml",
-        "https://writing.natwelch.com/feed.rss",
-        "https://resevoir.net/rss.xml",
-        "https://szymonkaliski.com/feed.xml",
-        "https://xj-ix.luxe/feed.atom",
-        "http://nonmateria.com/rss.xml",
-        "https://oddworlds.org/rss.xml",
-        "https://chad.is/rss.xml",
-        "https://bismuth.garden/feed.xml",
-        "https://xvw.github.io/atom.xml",
-        "https://now.lectronice.com/feed.xml",
-        "https://longest.voyage/index.xml",
-        "https://kokorobot.ca/links/rss.xml",
-        "https://ameyama.com/blog/rss.xml",
-        "https://phse.net/post/index.xml",
-        "https://rosano.ca/feed",
-        "https://teknari.com/feed.xml",
-        "https://serocell.com/feeds/serocell.xml",
-        "https://gueorgui.net/feed.xml",
-        "https://sixey.es/feed.xml",
-        "https://icyphox.sh/blog/feed.xml",
-        "https://royniang.com/rss.xml",
-        "https://crlf.site/feed.xml",
-        "https://system32.simone.computer/rss.xml",
-        "https://simply.personal.jenett.org/feed/",
-        "https://q.pfiffer.org/feed.xml",
-        "https://www.edwinwenink.xyz/index.xml",
-        "https://www.mentalnodes.com/sitemap.xml",
-        "https://materialfuture.net/rss.xml",
-        "https://travisshears.com/index.xml",
-        "https://ix5.org/thoughts/feeds/all.atom.xml",
-        "https://nor.the-rn.info/feed.xml",
-        "https://inqlab.net/posts.xml",
-        "https://metasyn.pw/rss.xml",
-        "https://milofultz.com/atom.xml",
-        "https://wolfmd.me/feed.xml",
-        "https://irimi.one/atom.xml",
-        "https://natehn.com/index.xml",
-        "https://www.gr0k.net/blog/feed.xml",
-        "https://tendigits.space/feed.xml",
-        "https://wiki.xxiivv.com/links/rss.xml"]
 
 async def main():
 
@@ -92,6 +47,7 @@ async def main():
                         
                         #yeah we're gonna throw invalid dates with the NULL post at the bottom LOL
                         #fix ya' XML.
+                        #Will make a list of valid dates later, if any of those fail, default to this bullshit.
                         if pub_date[0] == "Invalid Date":
                             pub_date = ['0001-01-01']
                             print(f"INVALID DATE FIXED WITH:{pub_date[0]} at {link_url[0]}")

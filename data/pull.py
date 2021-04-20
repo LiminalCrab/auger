@@ -64,15 +64,15 @@ async def main():
                     else:
                         print(f"IS NONE: {link} and {link_url} ")
                     
-                    #send to database.
-                    if title and link_url:
-                        print(f"STAGED FOR DATABASE: {title[0]} {link_url[0]}")
-                        print("Found {} with HREF {}".format(title, link_url))
-                        cur.execute("INSERT INTO posts (article_title, article_url) VALUES (%s, %s)", 
-                            (title[0], link_url[0]))
-                        conn.commit()
-                        print("committed")
-                        print(f"{title} and {link_url} submitted to database.")
+                #send to database.
+                if title and link_url:
+                    print(f"STAGED FOR DATABASE: {title[0]} {link_url[0]}")
+                    print("Found {} with HREF {}".format(title, link_url))
+                    cur.execute("INSERT INTO posts (article_title, article_url) VALUES (%s, %s)", 
+                        (title[0], link_url[0]))
+                    conn.commit()
+                    print("committed")
+                    print(f"{title} and {link_url} submitted to database.")
                         
     cur.close()
     conn.close()  

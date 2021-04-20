@@ -3,7 +3,7 @@ import httpx
 from bs4 import BeautifulSoup
 import psycopg2
 from urls import URLS_HTML
-
+import re
 
 #[WHAT IS THIS]
 #Scrapes URLS_HTML for their favicon links using beautiful soup. It's also where
@@ -14,6 +14,19 @@ conn = psycopg2.connect("")
 
 #open initial cursor
 cur = conn.cursor()
+
+#SQL vars
+extract_article_url = '''
+    CREATE OR REPLACE FUNCTION public.posts(_url text)
+        RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS
+    $$
+        SELECT string_agg(token, '' ORDER BY alias DESC)
+        FROM ts_debug(_url) q
+        WHERE q.alias in ('protocol', 'host');
+    $$;
+    
+    select posts('article_url');
+    '''
 
 async def main():
     async with httpx.AsyncClient() as client:
@@ -32,7 +45,7 @@ async def main():
                 print("Exception caught after second try.")
                 continue
             
-            try:
+            try:      
                 if root.find("link", attrs=({"rel": "icon"})):
                     favi = root.find("link", attrs={"rel": "icon"}).get('href')
                 elif root.find("link", attrs={"rel": "shortcut icon"}):
@@ -40,19 +53,32 @@ async def main():
                 else:
                     favi = f'{url.rstrip("/")}/favicon.ico'
                     
-                    if favi == "./data/favicon.png":
-                        favi = f"{url}/data/favicon.png"
-                    if favi == "data:,":
-                        favi = f"{url}/assets/anon.ico"
-                                       
-                #cur.execute("UPDATE posts SET site_favicon = (%s) WHERE site_url = (%s);", (favi, url))
+                if favi == "./data/favicon.png":
+                    favi = f"{url}/data/favicon.png"
+                if favi == "data:,":
+                     favi = f"{url}/assets/anon.ico"
+                     
+                #okay now we have to make some matches.
+                cur.execute(extract_article_url)
+                matchrow = [cur.fetchall()]
+                for match in matchrow:
+                    db_url = [match]
+                    li_url = [url]
+                    
+                    print(db_url)
+                    
+  
+
+                
+            
+                     
                 #conn.commit()
                 
             except IndexError:
                 print("Exception caught second try.")
                 
-    cur.close()
-    conn.close()
+    #cur.close()
+    #conn.close()
                 
 if __name__ == '__main__':
     asyncio.run(main())

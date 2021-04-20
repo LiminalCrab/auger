@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from urls import URLS_HTML
+import urllib.parse
 import psycopg2
 import asyncio
 import httpx
@@ -8,7 +9,8 @@ import re
 
 #[WHAT IS THIS]
 #Scrapes URLS_HTML for their favicon links using beautiful soup. It's also where
-#we get the host_url for the database, kind of weird I know. 
+#we get the host_url for the database. 
+ 
 
 #open initial connection
 conn = psycopg2.connect("")
@@ -29,70 +31,73 @@ sql_extract_article_url = '''
     select posts(%s);
     '''
 
-sql_output_select_urls = []    
+select_urls_from_post = '''
+SELECT article_url FROM posts;
+''' 
+
+update_transact = '''
+UPDATE posts SET article_host = %s, article_favicon = %s WHERE article_url ILIKE '%' || %s || '%', 
+'''
 
 async def main():
+    db_urls = row_match()
     async with httpx.AsyncClient() as client:
-        for url in URLS_HTML:
+        for url in db_urls:
             try:
                 response = await client.get(url, timeout=30.0)
                 
             except httpx.RequestError as exc:
-                print(f"An error occurred while requesting {exc.request.url!r}.")
-                continue
-            
+                    print(f"An error occured while making request {exc.request.url!r}.")
+                    
             try:
                 root = BeautifulSoup(response.text, features="lxml")
                 
             except:
-                print("Exception caught after second try.")
-                continue
-            
-            try:      
+                print("exception caught after second try.")
+                
+            try:
                 if root.find("link", attrs=({"rel": "icon"})):
-                    favi = root.find("link", attrs={"rel": "icon"}).get('href')
-                    favicon = f'{url}/{favi}'
-                    print("ICON:", favicon)
-                elif root.find("link", attrs={"rel": "shortcut icon"}):
-                    favi = root.find("link", attrs={"rel": "shortcut icon"}).get('href')
-                    favicon = f'{url}/{favi}'
-                    print("SHORTCUT:", favicon)
-                elif favi == "./data/favicon.png":
-                    favi = f"{url}/data/favicon.png"
-                elif favi == "data:,": #default to this icon.
-                    favi = f"sudogami.com/assets/anon.ico"
+                    favicon_path = root.find("link", attrs={"rel": "icon"}).get('href')
+                elif root.find("link", attrs=({"rel": "shortcut icon"})):
+                    favicon_path = root.find("link", attrs={"rel": "shortcut icon"}).get('href')
                 else:
-                    favi = f'{url.rstrip("/")}/favicon.ico'
+                    favicon_path = "/favicon.ico"
                     
-                #if favi == "./data/favicon.png":
-                    #favi = f"{url}/data/favicon.png"
-                #if favi == "data:,": #default to this icon.
-                     #favi = f"sudogami.com/assets/anon.ico"
-            except IndexError:
-                print("Exception caught second try.")
+                if favicon_path == "data:,":
+                    favicon_path = None #default icon.
+
+                if favicon_path is not None:
+                    favicon_url = urllib.parse.urljoin(url, favicon_path)
                 
-        #We need to match the favicons to the correct rows.
-        #this first execute is grabbing us the list of posts we need to iterate over.
-        #the query in the for loop is stripping the hyperlink and giving us the literal URL.         
-        cur.execute('SELECT article_url FROM posts;')
-        all_articles = [cur.fetchall()]
-        for art in all_articles[0]:
-            cur.execute(sql_extract_article_url, art)
-            staged_urls = cur.fetchall()
-            #print(art[0])
-            
-            #remove unnecessary characters [0][0]
-            #send back into the db in a new row.
-            if art[0] and staged_urls[0][0]:
-                #cur.execute('UPDATE posts SET article_host = (%s) WHERE article_url = (%s)', (staged_urls[0][0], art[0]))
-                print("ADDED: {} AT: {}".format(staged_urls[0][0], art[0]))
+                #print("TYPES - HOST: {}, FAVICON {}".format(type(url), type(favicon_url)))
+                #let's chunk this to postgres
+                print(f"ADDING TO DATABASE: HOST: {url}, FAVICON: {favicon_url}, with conditional key {url}")
+                cur.execute(update_transact, (url, favicon_url, url))
+                conn.commit()
                 
+            except ValueError:
+                print("exception", url)
+        
             
-            
-            
-                
-        cur.close()
-        conn.close()
-                                
+def row_match():
+    cur.execute(select_urls_from_post)
+    all_articles = cur.fetchall()
+    stg_urls = []
+    
+    for article in all_articles:
+        cur.execute(sql_extract_article_url, article)
+        staged_articles = cur.fetchall()
+        if staged_articles[0][0] is not None:
+            stg_urls.append(staged_articles[0][0]) #We break a list, add it to another lol
+        else:
+            print("else else", staged_articles[0][0])   
+        
+    return stg_urls
+        
+        
+        
 if __name__ == '__main__':
     asyncio.run(main())
+    
+cur.close()
+conn.close()

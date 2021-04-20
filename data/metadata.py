@@ -48,8 +48,12 @@ async def main():
             try:      
                 if root.find("link", attrs=({"rel": "icon"})):
                     favi = root.find("link", attrs={"rel": "icon"}).get('href')
+                    favicon = f'{url}/{favi}'
+                    print("ICON:", favicon)
                 elif root.find("link", attrs={"rel": "shortcut icon"}):
                     favi = root.find("link", attrs={"rel": "shortcut icon"}).get('href')
+                    favicon = f'{url}/{favi}'
+                    print("SHORTCUT:", favicon)
                 else:
                     favi = f'{url.rstrip("/")}/favicon.ico'
                     
@@ -60,7 +64,6 @@ async def main():
                 
                 favicons = [favi]
                 print(favicons)
-                pdb.set_trace()
                        
             except IndexError:
                 print("Exception caught second try.")

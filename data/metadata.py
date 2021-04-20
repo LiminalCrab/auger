@@ -25,7 +25,7 @@ extract_article_url = '''
         WHERE q.alias in ('protocol', 'host');
     $$;
     
-    select posts('article_url');
+    select posts(%s);
     '''
 
 async def main():
@@ -56,29 +56,20 @@ async def main():
                 if favi == "./data/favicon.png":
                     favi = f"{url}/data/favicon.png"
                 if favi == "data:,":
-                     favi = f"{url}/assets/anon.ico"
-                     
-                #okay now we have to make some matches.
-                cur.execute(extract_article_url)
-                matchrow = [cur.fetchall()]
-                for match in matchrow:
-                    db_url = [match]
-                    li_url = [url]
-                    
-                    print(db_url)
-                    
-  
-
-                
-            
-                     
-                #conn.commit()
-                
+                     favi = f"sudogami.com/assets/anon.ico"
+                       
             except IndexError:
                 print("Exception caught second try.")
                 
-    #cur.close()
-    #conn.close()
+        cur.execute('SELECT article_url FROM posts;')
+        all_articles = [cur.fetchall()]
+        for art in all_articles[0]:
+            cur.execute(extract_article_url, art)
+            endl = cur.fetchall()
+            print(endl)
                 
+        cur.close()
+        conn.close()
+                                
 if __name__ == '__main__':
     asyncio.run(main())

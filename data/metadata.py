@@ -1,10 +1,11 @@
+from bs4 import BeautifulSoup
+from urls import URLS_HTML
+import psycopg2
 import asyncio
 import httpx
-from bs4 import BeautifulSoup
-import psycopg2
-from urls import URLS_HTML
 import re
-import pdb
+
+
 #[WHAT IS THIS]
 #Scrapes URLS_HTML for their favicon links using beautiful soup. It's also where
 #we get the host_url for the database, kind of weird I know. 
@@ -16,7 +17,7 @@ conn = psycopg2.connect("")
 cur = conn.cursor()
 
 #SQL vars
-extract_article_url = '''
+sql_extract_article_url = '''
     CREATE OR REPLACE FUNCTION public.posts(_url text)
         RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS
     $$
@@ -27,6 +28,8 @@ extract_article_url = '''
     
     select posts(%s);
     '''
+
+sql_output_select_urls = []    
 
 async def main():
     async with httpx.AsyncClient() as client:
@@ -54,17 +57,17 @@ async def main():
                     favi = root.find("link", attrs={"rel": "shortcut icon"}).get('href')
                     favicon = f'{url}/{favi}'
                     print("SHORTCUT:", favicon)
+                elif favi == "./data/favicon.png":
+                    favi = f"{url}/data/favicon.png"
+                elif favi == "data:,": #default to this icon.
+                    favi = f"sudogami.com/assets/anon.ico"
                 else:
                     favi = f'{url.rstrip("/")}/favicon.ico'
                     
-                if favi == "./data/favicon.png":
-                    favi = f"{url}/data/favicon.png"
-                if favi == "data:,":
-                     favi = f"sudogami.com/assets/anon.ico"
-                
-                favicons = [favi]
-                print(favicons)
-                       
+                #if favi == "./data/favicon.png":
+                    #favi = f"{url}/data/favicon.png"
+                #if favi == "data:,": #default to this icon.
+                     #favi = f"sudogami.com/assets/anon.ico"
             except IndexError:
                 print("Exception caught second try.")
                 
@@ -74,7 +77,7 @@ async def main():
         cur.execute('SELECT article_url FROM posts;')
         all_articles = [cur.fetchall()]
         for art in all_articles[0]:
-            cur.execute(extract_article_url, art)
+            cur.execute(sql_extract_article_url, art)
             staged_urls = cur.fetchall()
             #print(art[0])
             

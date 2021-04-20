@@ -35,9 +35,9 @@ select_urls_from_post = '''
 SELECT article_url FROM posts;
 ''' 
 
-update_transact = '''
+update_transact = """
 UPDATE posts SET article_host = %s, article_favicon = %s WHERE article_url ILIKE '%' || %s || '%', 
-'''
+"""
 
 async def main():
     db_urls = row_match()
@@ -72,7 +72,8 @@ async def main():
                 #print("TYPES - HOST: {}, FAVICON {}".format(type(url), type(favicon_url)))
                 #let's chunk this to postgres
                 print(f"ADDING TO DATABASE: HOST: {url}, FAVICON: {favicon_url}, with conditional key {url}")
-                cur.execute(update_transact, (url, favicon_url, url))
+                cur.execute("""UPDATE posts SET article_host = %s, article_favicon = %s WHERE article_url SIMILAR TO '%%' || %s || '%%'""", 
+                            (url, favicon_url, url))
                 conn.commit()
                 
             except ValueError:

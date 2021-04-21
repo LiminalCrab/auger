@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from urls import URLS_HTML
 import urllib.parse
 import psycopg2
 import asyncio
@@ -69,7 +68,6 @@ async def main():
                 if favicon_path is not None:
                     favicon_url = urllib.parse.urljoin(url, favicon_path)
                 
-                #print("TYPES - HOST: {}, FAVICON {}".format(type(url), type(favicon_url)))
                 #let's chunk this to postgres
                 print(f"ADDING TO DATABASE: HOST: {url}, FAVICON: {favicon_url}, with conditional key {url}")
                 cur.execute("""UPDATE posts SET article_host = %s, article_favicon = %s WHERE article_url SIMILAR TO '%%' || %s || '%%'""", 

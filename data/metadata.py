@@ -62,6 +62,7 @@ async def main():
                 else:
                     favicon_path = "/favicon.ico"
                     
+                    #gonna have to expand this later, just getting rid of something I noticed.
                 if favicon_path == "data:,":
                     favicon_path = None #default icon.
 

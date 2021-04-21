@@ -75,6 +75,10 @@ Just a python list of the xml feeds and host sites to pull from.
     - [X] this might actually become obsolete.
 
 
+## ISSUES
+- [ ] - article_host and article_favicon might actually scrape subdomains, need to strip those.
+
+
 ## BACK BURNER
 
 CSS

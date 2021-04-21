@@ -94,7 +94,7 @@ ul {
 }
 
 li {
-    line-height: 1.25;
+    line-height: .5;
 }
 
 .flow>*+* {

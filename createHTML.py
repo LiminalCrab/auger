@@ -21,7 +21,12 @@ def loadData():
     try:
         
         q_select = '''
-        SELECT article_title, article_url, to_char(article_date, 'DD Mon YYYY') 
+        SELECT 
+        article_title, 
+        article_url, 
+        to_char(article_date, 'DD Mon YYYY'),
+        article_favicon,
+        article_host
         FROM posts ORDER BY article_date DESC;
         '''
         cur.execute(q_select)

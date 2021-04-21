@@ -51,15 +51,18 @@ Yeah this just fetches the json links and formats them before populated index.ht
 
 - [ ] Jinja implementation
     - [X] Remove Javascript / JSON, allow the database to populate the html directly.
-    - [ ] make it so their website favicons show up beside their articles
+    - [X] make it so their website favicons show up beside their articles
     - [ ] limit posts per page to 50 or 100.
     - [ ] add post summaries. 
-- [ ] POSTGRESQL
-    - [ ] add row for post_summaries, url_favicon, url_name.
+- [X] metadata.py (This will be expanded for more html related stuff in the future)
+    - [X] - Get favicons.
+    - [X] - Process host site url.
+    - [X] - Match host site and favicons to associated articles in db
+- [X] POSTGRESQL
+    - [X] add row for article_host, article_favicon, article_summary.
 - [ ] pull.py
-    - [ ] Scrape for favicons.
     - [ ] Scrape for post_summaries and only collect (250 characters?)
 - [X] order.py
-    - [ ] decouple from JSON
-    - [ ] direct db output to html.
+    - [-] decouple from JSON
+    - [-] direct db output to html.
     - [X] this might actually become obsolete.

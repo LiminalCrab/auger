@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import json
 import psycopg2
+import sys, threading
 
 #open initial connection
 conn = psycopg2.connect("")

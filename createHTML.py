@@ -46,7 +46,6 @@ def loadData():
     
         
 def makeHTML(template, data):
-    print("DATA:", data[1])
     filename = os.path.join(os.getcwd(), 'index.html')
     with open(filename, 'w+') as fw:
         fw.write(template.render(data=data))

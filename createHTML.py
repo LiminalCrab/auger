@@ -1,10 +1,7 @@
-import os
-import json
-import psycopg2
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from datetime import datetime
-
-
+import psycopg2
+import os
 
 #open initial connection
 conn = psycopg2.connect("")

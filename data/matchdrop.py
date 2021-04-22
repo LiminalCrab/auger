@@ -1,4 +1,3 @@
-import asyncio
 import psycopg2
 
 #open initial connection
@@ -7,7 +6,7 @@ conn = psycopg2.connect("")
 #open initial cursor
 cur = conn.cursor()
 
-async def main():
+def main():
     
     #this might be causing some problems.
     #dupes_del = '''
@@ -34,5 +33,5 @@ async def main():
     conn.close()
 
 if __name__ == '__main__':
-    asyncio.run(main())  
+    main()  
 

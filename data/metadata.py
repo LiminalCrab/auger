@@ -3,7 +3,6 @@ import urllib.parse
 import psycopg2
 import asyncio
 import httpx
-import re
 
 
 #[WHAT IS THIS]

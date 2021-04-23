@@ -45,13 +45,13 @@ def makeHTML(template, data):
     
     i = 0
     filename = os.path.join(os.getcwd(), 'index.html')
-    fw = open(filename, 'w+')
-    for article in data:
-        i += 0
-        if i < 5:
-            fw.close()
-            fw = open('test%s.html' % i, 'w')
-            fw.write(template.render(data=data))
+    with open(filename, 'w+') as fw:
+            i += 1
+            if i < 5:
+                fw.write(template.render(data=data))
+                fw.close()
+                fw = open('page/%s.html' % i, 'w')
+                fw.write(template.render(data=data))
         #count += 1
    
     #filename = os.path.join(os.getcwd(), 'index.html')

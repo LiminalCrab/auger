@@ -42,17 +42,22 @@ def loadData():
     
         
 def makeHTML(template, data):
-    
-    i = 0
+    for x in range(len(data)):
+        max_posts = x #1646
+        
+    current_post = 0 #current post number
+    pg_num = 0 #page number used for file names
+    page_limit = 100 #when the data reaches this number, we want to create a new file and then continue writing starting from
+    #the current post?
     filename = os.path.join(os.getcwd(), 'index.html')
     with open(filename, 'w+') as fw:
-            i += 1
-            if i < 5:
-                fw.write(template.render(data=data))
-                fw.close()
-                fw = open('page/%s.html' % i, 'w')
-                fw.write(template.render(data=data))
-        #count += 1
+        for article in data:
+                current_post += 1
+                pg_num += 1
+                if current_post < page_limit: #if post limit is less than the length of data
+                    fw = open('page/%s.html' % pg_num, 'w')
+                    fw.write(template.render(data=data[:current_post]))
+                
    
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.

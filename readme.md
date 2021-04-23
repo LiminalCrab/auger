@@ -9,12 +9,13 @@ TO DO list at the bottom.
 This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community.
 
 ## How do I add my website to the aggregator?
-You have to be an active member of the Merveilles community.
+You have to be an active member of the Merveilles community, and thus the Mastodon rules apply to this page. You can read them here: https://merveilles.town/about/more
 Your website must meet the [criteria of the Webring project](https://github.com/XXIIVV/Webring/#webring-criteria).
 
 If you meet both of those conditions just modify url.py with your rss link, your website link, and make a code comment linking to your merveilles.town mastodon account and I'll look into it.
 
-If your website does not meet the Webring criteria but manages to make it on their anyway, It will be removed from Auggar.
+If your website does not meet the Webring criteria but manages to make it on their anyway, It will be removed from Auggar at my discretion. I really appreciate constructive content. If community members complain about said content, the post is likely to be removed.
+
 
 ## HOW DOES IT WORK?
 

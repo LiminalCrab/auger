@@ -44,7 +44,6 @@ def loadData():
     
 
 def pagination(data):
-    last_range_counted = []    
     pages = 0
     item_per_page = 102
     current_page = 1

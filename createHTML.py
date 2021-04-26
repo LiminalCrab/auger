@@ -42,18 +42,27 @@ def loadData():
         
         return processed_data
     
-        
-def makeHTML(template, data):    
+
+def pagination(data):
+    last_range_counted = []    
     pages = 0
     item_per_page = 102
     current_page = 1
     data_length = len(data)
     pages = math.ceil((data_length) / item_per_page)
     for article_r in range(data_length):
-        while article_r / item_per_page >= current_page:
-            for article in data: #the loop above is numbers, should ask about a better way to do this.
-                current_page += 1
-                print(current_page, article_r, article)    
+        if article_r / item_per_page >= current_page:
+            current_page += 1
+            print(current_page, article_r)
+
+    
+
+        
+def makeHTML(template, data):
+    print("hi")
+
+
+            #for article in data: #the loop above is numbers, should ask about a better way to do this.
    
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.
@@ -61,6 +70,7 @@ def makeHTML(template, data):
         #fw.write(template.render(data=data))
 
 def main():
+    pagination(loadData())
     makeHTML(loadTemplate(), loadData())
 
 if __name__ == '__main__':

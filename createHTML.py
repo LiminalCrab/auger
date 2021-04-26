@@ -1,6 +1,8 @@
+
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from datetime import datetime
 import psycopg2
+import math
 import os
 
 #open initial connection
@@ -41,32 +43,16 @@ def loadData():
         return processed_data
     
         
-def makeHTML(template, data):
-    for x in range(len(data)):
-        max_posts = x #1646
-        
-    current_post = 1 #current post number
-    pg_num = 1 #page number used for file names
-    post_limit = 100 #when the data reaches this number, we want to create a new file and then continue writing starting from
-    quotient = max_posts // post_limit
-    filename = os.path.join(os.getcwd(), 'index.html')
-    with open(filename, 'w+') as fw:
-        fw.write(template.render(data=data[:current_post]))
-        fw.close()
-        for article in data:
-            print("Article", article)
-            print("current_post:", current_post)
-            print("pg_num", pg_num)
-            print("quotient:", quotient)
-
-                #if current_post < post_limit: #if post limit is less than the length of data
-                    #after writing to index, start creating numbered pages.
-                    #fw = open('page/%s.html' % pg_num, 'w')
-                    #fw.write(template.render(data=data[:2]))
-                    
-            current_post += 1
-            pg_num += 1
-                
+def makeHTML(template, data):    
+    pages = 0
+    item_per_page = 100
+    current_page = 1
+    data_length = len(data)
+    pages = math.ceil((data_length) / item_per_page)
+    for article in range(data_length):
+        while article / item_per_page >= current_page:
+            current_page += 1
+            print(current_page, data)    
    
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.

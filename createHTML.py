@@ -45,14 +45,15 @@ def loadData():
         
 def makeHTML(template, data):    
     pages = 0
-    item_per_page = 100
+    item_per_page = 102
     current_page = 1
     data_length = len(data)
     pages = math.ceil((data_length) / item_per_page)
-    for article in range(data_length):
-        while article / item_per_page >= current_page:
-            current_page += 1
-            print(current_page, data)    
+    for article_r in range(data_length):
+        while article_r / item_per_page >= current_page:
+            for article in data: #the loop above is numbers, should ask about a better way to do this.
+                current_page += 1
+                print(current_page, article_r, article)    
    
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.

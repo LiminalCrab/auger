@@ -45,9 +45,9 @@ def loadData():
     
 ## PAGINATION CODE BELOW ##
 
-def pg_to_list(data):
+def pg_to_list():
     origin_data = loadData()
-    page_number = 0
+    page_number = 1
     entries_per_page = 100
     entries = []
     while len(origin_data) > 0:
@@ -56,29 +56,25 @@ def pg_to_list(data):
         entries.append((page_number, page_entries))
         page_number += 1
         
-    for page in entries:
-        page_number = page[0]
-        all_entries = page[1]
-        print(all_entries, page_number)
-    
-    
-def makeHTML(template, data):
-    print("this function is commented out, makeHTML")
+    return entries
 
-
-        #for article in data: #the loop above is numbers, should ask about a better way to do this.
-   
+    
+def makeHTML(template):
+    #print("this function is commented out, makeHTML")
+    data = pg_to_list()
+    for x in range(len(data)):
+        for g in range(len(data[x])):
+            print(data[x][g])
+    
+    #print(data[16][0])
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.
     #with open(filename, 'w+') as fw:
         #fw.write(template.render(data=data))
 
 def main():
-    pg_to_list(loadData())
-    #pgn_populate_entry()
-    #pgn_get_max_numbers(loadData())
-    #pgn_match_to_data(loadData())
-    makeHTML(loadTemplate(), loadData())
+    #pg_to_list()
+    makeHTML(loadTemplate())
 
 if __name__ == '__main__':
     main()

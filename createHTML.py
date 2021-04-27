@@ -45,56 +45,57 @@ def loadData():
 
 #This gets the page numbers, and the index of the corresponding item in the list.
 def pgn_get_max_numbers(data):
+    ## STUFF I MIGHT NEED IN THE FUTURE ##
     #pages = 0
+    #pages = math.ceil((data_length) / item_per_page)
+
     item_per_page = 102
     current_page = 1
     data_length = len(data)
-    #pages = math.ceil((data_length) / item_per_page)
     
     #lists of staged data for return out of function.
-    stg_article_range = []
+    stg_whole_article_range = []
+    stg_max_article_range = []
     stg_current_page_data = []
     for article_r in range(data_length):
+        stg_whole_article_range.append(article_r)
         #here is min max we need to fill the pages.
         if article_r / item_per_page >= current_page:
             current_page += 1
             stg_current_page_data.append(current_page)
-            stg_article_range.append(article_r)
-        
-        #so let's fill in the data between the pages now. 
-        #page 2 has to populate the first 102 items.
+            stg_max_article_range.append(article_r)
     
-    return stg_current_page_data, stg_article_range
+    return stg_current_page_data, stg_max_article_range, stg_whole_article_range
 
-
+#We need data to populate whole pages now.
 def pgn_populate_entry():
-    unpack_current_page_data = pgn_get_max_numbers(loadData())[0]
-    unpack_article_range = pgn_get_max_numbers(loadData())[1]
-    
-    
-    
-    
-
+    max_page_count = pgn_get_max_numbers(loadData())[0]
+    max_article_range = pgn_get_max_numbers(loadData())[1]
+    data_gap = pgn_get_max_numbers(loadData())[2]
+    for x in max_page_count:
+        for i in data_gap:
+            if data_gap < max_article_range:
+                #okay im literally in the same situation i was before...
+                print(data_gap)
+                            
 #This matches the page numbers and index returned from above to the corresponding items in string format.
 def pgn_match_to_data(db_data):
     unpack_current_page_data = pgn_get_max_numbers(loadData())[0]
     unpack_article_range = pgn_get_max_numbers(loadData())[1]
     pgn_origin_data = [loadData()]
     for article in pgn_origin_data:
-        #mmkay this might be wild. 
         current_page = [x for x in unpack_current_page_data]
         post_number = [x for x in unpack_article_range]
-        matched_data = {"page_number": current_page, "post_number": post_number}
+        #matched_data = {"page_number": current_page, "post_number": post_number}
         #print(matched_data)
     
     
-    
-        
+
 def makeHTML(template, data):
     print("this function is commented out, makeHTML")
 
 
-            #for article in data: #the loop above is numbers, should ask about a better way to do this.
+        #for article in data: #the loop above is numbers, should ask about a better way to do this.
    
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.
@@ -103,6 +104,7 @@ def makeHTML(template, data):
 
 def main():
     pgn_populate_entry()
+    #pgn_get_max_numbers(loadData())
     #pgn_match_to_data(loadData())
     makeHTML(loadTemplate(), loadData())
 

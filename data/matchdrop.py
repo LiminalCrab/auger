@@ -10,13 +10,13 @@ cur = conn.cursor()
 async def main():
     
     #this might be causing some problems.
-    #dupes_del = '''
-       # DELETE FROM posts
-       # WHERE posts.id IN (
-        #SELECT posts.id FROM ( SELECT posts.id, ROW_NUMBER() OVER w as rnum FROM posts 
-           # WINDOW w AS ( partition BY article_title, article_url
-              #  ORDER BY posts.id)) t WHERE t.rnum > 1);
-   # '''
+    dupes_del = '''
+       DELETE FROM posts
+       WHERE posts.id IN (
+        ELECT posts.id FROM ( SELECT posts.id, ROW_NUMBER() OVER w as rnum FROM posts 
+           WINDOW w AS ( partition BY article_title, article_url
+              ORDER BY posts.id)) t WHERE t.rnum > 1);
+    '''
 
     delete_empty_dates = '''
     DELETE FROM posts WHERE article_date IS NULL;

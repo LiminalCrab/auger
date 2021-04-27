@@ -49,7 +49,7 @@ def pgn_get_max_numbers(data):
     #pages = 0
     #pages = math.ceil((data_length) / item_per_page)
 
-    item_per_page = 102
+    max_item_per_page = 102
     current_page = 1
     data_length = len(data)
     
@@ -60,11 +60,11 @@ def pgn_get_max_numbers(data):
     for article_r in range(data_length):
         stg_whole_article_range.append(article_r)
         #here is min max we need to fill the pages.
-        if article_r / item_per_page >= current_page:
+        if article_r / max_item_per_page >= current_page:
             current_page += 1
             stg_current_page_data.append(current_page)
             stg_max_article_range.append(article_r)
-    
+                  
     return stg_current_page_data, stg_max_article_range, stg_whole_article_range
 
 #We need data to populate whole pages now.
@@ -72,11 +72,13 @@ def pgn_populate_entry():
     max_page_count = pgn_get_max_numbers(loadData())[0]
     max_article_range = pgn_get_max_numbers(loadData())[1]
     data_gap = pgn_get_max_numbers(loadData())[2]
-    for x in max_page_count:
-        for i in data_gap:
-            if data_gap < max_article_range:
-                #okay im literally in the same situation i was before...
-                print(data_gap)
+    max_item_per_page = 102
+    for page in max_page_count:
+        for data in data_gap:
+            item_per_page = data % max_item_per_page
+            print(page, item_per_page)
+    
+
                             
 #This matches the page numbers and index returned from above to the corresponding items in string format.
 def pgn_match_to_data(db_data):

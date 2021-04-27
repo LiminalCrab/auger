@@ -44,29 +44,49 @@ def loadData():
     
 
 #This gets the page numbers, and the index of the corresponding item in the list.
-def pgn_get_numbers(data):
-    pages = 0
+def pgn_get_max_numbers(data):
+    #pages = 0
     item_per_page = 102
     current_page = 1
     data_length = len(data)
-    pages = math.ceil((data_length) / item_per_page)
+    #pages = math.ceil((data_length) / item_per_page)
     
     #lists of staged data for return out of function.
     stg_article_range = []
     stg_current_page_data = []
     for article_r in range(data_length):
+        #here is min max we need to fill the pages.
         if article_r / item_per_page >= current_page:
             current_page += 1
             stg_current_page_data.append(current_page)
             stg_article_range.append(article_r)
-
+        
+        #so let's fill in the data between the pages now. 
+        #page 2 has to populate the first 102 items.
+    
     return stg_current_page_data, stg_article_range
 
+
+def pgn_populate_entry():
+    unpack_current_page_data = pgn_get_max_numbers(loadData())[0]
+    unpack_article_range = pgn_get_max_numbers(loadData())[1]
+    
+    
+    
+    
+
 #This matches the page numbers and index returned from above to the corresponding items in string format.
-def pgn_match_to_data():
-    m_current_page = pgn_get_numbers(loadData())[0]
-    m_article_r = pgn_get_numbers(loadData())[1]
-    print(m_current_page, m_article_r)
+def pgn_match_to_data(db_data):
+    unpack_current_page_data = pgn_get_max_numbers(loadData())[0]
+    unpack_article_range = pgn_get_max_numbers(loadData())[1]
+    pgn_origin_data = [loadData()]
+    for article in pgn_origin_data:
+        #mmkay this might be wild. 
+        current_page = [x for x in unpack_current_page_data]
+        post_number = [x for x in unpack_article_range]
+        matched_data = {"page_number": current_page, "post_number": post_number}
+        #print(matched_data)
+    
     
     
         
@@ -82,7 +102,8 @@ def makeHTML(template, data):
         #fw.write(template.render(data=data))
 
 def main():
-    pgn_match_to_data()
+    pgn_populate_entry()
+    #pgn_match_to_data(loadData())
     makeHTML(loadTemplate(), loadData())
 
 if __name__ == '__main__':

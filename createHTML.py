@@ -60,13 +60,26 @@ def pg_to_list():
 
     
 def makeHTML(template):
-    #print("this function is commented out, makeHTML")
     data = pg_to_list()
-    for x in range(len(data)):
-        for g in range(len(data[x])):
-            print(data[x][g])
+    column = list(zip(*data))
+    for i in range(len(data)):
+        sites_list_process = [column[1]] #fuck it
+        page_number = [column[0][i]]
+        
+    sites_single_array = []
+    for x in sites_list_process:
+        sites_single_array.extend(x)
+        #print(sites_single_array[0])
+        
+    print(sites_single_array[0], page_number[0])
     
-    #print(data[16][0])
+    filename = os.path.join(os.getcwd(), 'index.html')
+    for x in sites_single_array[0]:
+        for l in sites_single_array[x]
+        with open(filename, 'w+') as fw:
+            fw.write(template.render())
+
+
     #filename = os.path.join(os.getcwd(), 'index.html')
     #First we write to index.html.
     #with open(filename, 'w+') as fw:

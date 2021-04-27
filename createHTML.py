@@ -42,57 +42,26 @@ def loadData():
         
         return processed_data
     
-
-#This gets the page numbers, and the index of the corresponding item in the list.
-def pgn_get_max_numbers(data):
-    ## STUFF I MIGHT NEED IN THE FUTURE ##
-    #pages = 0
-    #pages = math.ceil((data_length) / item_per_page)
-
-    max_item_per_page = 102
-    current_page = 1
-    data_length = len(data)
     
-    #lists of staged data for return out of function.
-    stg_whole_article_range = []
-    stg_max_article_range = []
-    stg_current_page_data = []
-    for article_r in range(data_length):
-        stg_whole_article_range.append(article_r)
-        #here is min max we need to fill the pages.
-        if article_r / max_item_per_page >= current_page:
-            current_page += 1
-            stg_current_page_data.append(current_page)
-            stg_max_article_range.append(article_r)
-                  
-    return stg_current_page_data, stg_max_article_range, stg_whole_article_range
+## PAGINATION CODE BELOW ##
 
-#We need data to populate whole pages now.
-def pgn_populate_entry():
-    max_page_count = pgn_get_max_numbers(loadData())[0]
-    max_article_range = pgn_get_max_numbers(loadData())[1]
-    data_gap = pgn_get_max_numbers(loadData())[2]
-    max_item_per_page = 102
-    for page in max_page_count:
-        for data in data_gap:
-            item_per_page = data % max_item_per_page
-            print(page, item_per_page)
-    
-
-                            
-#This matches the page numbers and index returned from above to the corresponding items in string format.
-def pgn_match_to_data(db_data):
-    unpack_current_page_data = pgn_get_max_numbers(loadData())[0]
-    unpack_article_range = pgn_get_max_numbers(loadData())[1]
-    pgn_origin_data = [loadData()]
-    for article in pgn_origin_data:
-        current_page = [x for x in unpack_current_page_data]
-        post_number = [x for x in unpack_article_range]
-        #matched_data = {"page_number": current_page, "post_number": post_number}
-        #print(matched_data)
+def pg_to_list(data):
+    origin_data = loadData()
+    page_number = 0
+    entries_per_page = 100
+    entries = []
+    while len(origin_data) > 0:
+        page_entries = origin_data[:entries_per_page]
+        origin_data = origin_data[entries_per_page:]
+        entries.append((page_number, page_entries))
+        page_number += 1
+        
+    for page in entries:
+        page_number = page[0]
+        all_entries = page[1]
+        print(all_entries, page_number)
     
     
-
 def makeHTML(template, data):
     print("this function is commented out, makeHTML")
 
@@ -105,7 +74,8 @@ def makeHTML(template, data):
         #fw.write(template.render(data=data))
 
 def main():
-    pgn_populate_entry()
+    pg_to_list(loadData())
+    #pgn_populate_entry()
     #pgn_get_max_numbers(loadData())
     #pgn_match_to_data(loadData())
     makeHTML(loadTemplate(), loadData())

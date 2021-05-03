@@ -14,12 +14,12 @@ Your website must meet the [criteria of the Webring project](https://github.com/
 
 If you meet both of those conditions just modify url.py with your rss link, your website link, and make a code comment linking to your merveilles.town mastodon account and I'll look into it.
 
-If your website does not meet the Webring criteria but manages to make it on their anyway, It will be removed from Auggar at my discretion. I really appreciate constructive content. If community members complain about said content, the post is likely to be removed.
+If your website does not meet the Webring criteria but manages to make it on their anyway, It will be removed from Auger at my discretion. I really appreciate constructive content. If community members complain about said content, the post is likely to be removed.
 
 
 ## HOW DOES IT WORK?
 
-On the backend Auggar is running a postgres database that is populated and maintained by the python scripts listed below. It's scraping from a list of urls and individual rss feeds listed on the Webring project which then is submitted to the database using psycopg2. Afterwards the html is rendered to a static page using Jinja2. Cron is used to run these scripts once a day at a certain time (08:00 ET). ***This website is only updated once per day.***
+On the backend Auger is running a postgres database that is populated and maintained by the python scripts listed below. It's scraping from a list of urls and individual rss feeds listed on the Webring project which then is submitted to the database using psycopg2. Afterwards the html is rendered to a static page using Jinja2. Cron is used to run these scripts once a day at a certain time (08:00 ET). ***This website is only updated once per day.***
 
 You can see the database schema [here](https://github.com/LiminalCrab/fucking-bulletproof). This is the meme way I'm storing backups of the database. It's completely unncessary.
 

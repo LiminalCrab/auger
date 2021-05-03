@@ -13,10 +13,9 @@
         <h1> Auggar </h1>
         <p>The <a href="https://webring.xxiivv.com/">Merveilles webring</a> aggregator.</p>
         <p>Search with <a href="https://lieu.cblgh.org/">Lieu</a>.</p>
-
-        {% for x in pg %} <a class="ignore-css" href="{{x[0]}}.html">{{x}}</a> {% endfor %}
     </header>
     <main>
+        {% for x in pg %} <a id="no-wrap" href="{{x}}.html">{{x}}</a> {% endfor %}
     <!-- [0] = title, [1] = href, [2] = date  [3] = favicons -->
         <ul class="flow-3" id="content">
         {% include 'content.html' %}

@@ -24,7 +24,6 @@ URLS =  [
         "https://icyphox.sh/blog/feed.xml",
         "https://royniang.com/rss.xml",
         "https://crlf.site/feed.xml",
-        "https://q.pfiffer.org/feed.xml",
         "https://www.edwinwenink.xyz/index.xml",
         "https://www.mentalnodes.com/sitemap.xml",
         "https://materialfuture.net/rss.xml",

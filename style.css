@@ -113,8 +113,3 @@ li {
     margin-top: var(--s-5);
 }
 
-#no-wrap {
-    white-space: nowrap;
-    display: inline-block;
-    overflow: hidden;
-}

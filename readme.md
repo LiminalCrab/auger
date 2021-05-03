@@ -2,7 +2,7 @@
 
 
 # ABOUT
-Hosted on www.sudogami.com
+Hosted on www.sudogami.com/page/0.html
 
 TO DO list at the bottom.
 
@@ -48,11 +48,23 @@ The side effects of this so far is that the database currently has a lot of redu
 ### createHTML.py 
 
 Last script Cron runs.
-Static page generator, populates index.html with all the css, html, and stuff from the database.
+Static page generator, populates index.html with all the css, html, and stuff from the database. 
+
+It's important to note that inside the makeHTML function pagination takes place, it points to an html called end.html which is the final material on the list, and outputs the data from that onward all the way to page zero.
 
 ### urls.py
 
 Just a python list of the xml feeds and host sites to pull from.
+
+## Templates
+### Base.html
+This is the skeleton frame of the generated HTML. If something doesn't need its own template, I'll put it in here.
+
+### Content.html 
+This is where the code that populates the list is.
+
+## Pages
+This is where the createHTML.py outputs all the pages it generates.
 
 # TO DO
 
@@ -60,7 +72,7 @@ Just a python list of the xml feeds and host sites to pull from.
 - [ ] Jinja implementation
     - [X] Remove Javascript / JSON, allow the database to populate the html directly.
     - [X] make it so their website favicons show up beside their articles
-    - [ ] limit posts per page to 50 or 100.
+    - [X] limit posts per page to 50 or 100.
     - [ ] add post summaries.
 - [X] metadata.py (This will be expanded for more html related stuff in the future)
     - [X] - Get favicons.
@@ -74,11 +86,8 @@ Just a python list of the xml feeds and host sites to pull from.
     - [-] decouple from JSON
     - [-] direct db output to html.
     - [X] this might actually become obsolete.
-
-
-## ISSUES
-- [ ] - article_host and article_favicon might actually scrape subdomains, need to strip those.
-
+- [ ] Server
+    - [ ] See about replacing various CRON tabs with a single shell script.
 
 ## BACK BURNER
 
@@ -89,6 +98,10 @@ CSS
 POSTGRES
 - [ ] - Separate metadata table.
 - [ ] - One to many connection article_host to article_urls 
+
+OVERALL 
+- [ ] - Provide safety nets for scraping failures.
+- [ ] - Optimize the project and make sure everything runs smoothly.
 
 
 # REMOVED FILES

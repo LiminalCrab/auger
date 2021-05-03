@@ -47,16 +47,12 @@ def loadData():
 
 def pg_to_list():
     origin_data = loadData()
-    page_number = 1
     entries_per_page = 100
-    entries = []
-    while len(origin_data) > 0:
-        page_entries = origin_data[:entries_per_page]
-        origin_data = origin_data[entries_per_page:]
-        entries.append((page_number, page_entries))
-        page_number += 1
+    entries = [origin_data[page_offset:page_offset+entries_per_page] for page_offset in range(0, len(origin_data), entries_per_page)]
+    for page_number, page_entries in enumerate(entries):
+        print(page_number, page_entries)
         
-    return entries
+        return page_number, page_entries
 
     
 def makeHTML(template):
@@ -69,7 +65,7 @@ def makeHTML(template):
     sites_single_array = []
     for x in sites_list_process:
         sites_single_array.extend(x)
-        #print(sites_single_array[0])
+        print(sites_single_array[0])
         
     print(sites_single_array[0], page_number[0])
     
@@ -86,8 +82,8 @@ def makeHTML(template):
         #fw.write(template.render(data=data))
 
 def main():
-    #pg_to_list()
-    makeHTML(loadTemplate())
+    pg_to_list()
+    #makeHTML(loadTemplate())
 
 if __name__ == '__main__':
     main()

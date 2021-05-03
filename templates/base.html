@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auggar</title>
-    <script src="linksHandler.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body class="flow-5">
     <header class="flow-5">
@@ -16,13 +15,15 @@
         <p>Search with <a href="https://lieu.cblgh.org/">Lieu</a>.</p>
     </header>
     <main>
+        {% for x in pg %} <a href="{{x}}.html">{{x}}</a>{% endfor %} <a href="end.html">end</a> 
     <!-- [0] = title, [1] = href, [2] = date  [3] = favicons -->
         <ul class="flow-3" id="content">
-				{% for i in data %}
-				<li><a href={{i[1]}}>{{i[0]}}</a> - <date>{{i[2]}}</date></li>
-                <img src="{{i[3]}}" width="12" height="12"> <span style="font-size: 20px;">{{i[4]}}</span>
-				{% endfor %}
-				</ul>
+        {% include 'content.html' %}
+        {% block content %}
+
+        {% endblock %}
+        </ul>
+        {% for x in pg %} <a href="{{x}}.html">{{x}}</a>{% endfor %} <a href="end.html">end</a> 
     </main>
 </body>
 </html>

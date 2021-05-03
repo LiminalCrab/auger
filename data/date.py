@@ -1,10 +1,8 @@
-import psycopg2
-import re
-import httpx
-import asyncio
-import xml.etree.ElementTree as ET
 from urls import URLS
-
+import xml.etree.ElementTree as ET
+import psycopg2
+import asyncio
+import httpx
 
 
 

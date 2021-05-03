@@ -43,23 +43,13 @@ def loadData():
         return processed_data
     
     
-## PAGINATION CODE BELOW ##
 
-def pg_to_list():
-    origin_data = loadData()
-    entries_per_page = 100
-    entries = [origin_data[page_offset:page_offset+entries_per_page] for page_offset in range(0, len(origin_data), entries_per_page)]
-    for page_number, page_entries in enumerate(entries):
-        #print(page_number, page_entries)
-        
-        return page_number, page_entries
-
-    
 def makeHTML(template):
     origin_data = loadData()
     entries_per_page = 100
     filename = os.path.join(os.getcwd(), 'index.html')
 
+#pagination
     entries = [origin_data[page_offset:page_offset+entries_per_page] for page_offset in range(0, len(origin_data), entries_per_page)]
     for page_number, page_entries in enumerate(entries):
         with open(filename, 'w+') as fw:

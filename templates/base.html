@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auggar</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body class="flow-5">
     <header class="flow-5">
@@ -13,6 +13,8 @@
         <h1> Auggar </h1>
         <p>The <a href="https://webring.xxiivv.com/">Merveilles webring</a> aggregator.</p>
         <p>Search with <a href="https://lieu.cblgh.org/">Lieu</a>.</p>
+
+        {% for x in pg %} <a class="ignore-css" href="{{x[0]}}.html">{{x}}</a> {% endfor %}
     </header>
     <main>
     <!-- [0] = title, [1] = href, [2] = date  [3] = favicons -->

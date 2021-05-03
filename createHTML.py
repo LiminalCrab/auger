@@ -50,30 +50,33 @@ def pg_to_list():
     entries_per_page = 100
     entries = [origin_data[page_offset:page_offset+entries_per_page] for page_offset in range(0, len(origin_data), entries_per_page)]
     for page_number, page_entries in enumerate(entries):
-        print(page_number, page_entries)
+        #print(page_number, page_entries)
         
         return page_number, page_entries
 
     
 def makeHTML(template):
-    data = pg_to_list()
-    column = list(zip(*data))
-    for i in range(len(data)):
-        sites_list_process = [column[1]] #fuck it
-        page_number = [column[0][i]]
-        
-    sites_single_array = []
-    for x in sites_list_process:
-        sites_single_array.extend(x)
-        print(sites_single_array[0])
-        
-    print(sites_single_array[0], page_number[0])
-    
+    origin_data = loadData()
+    entries_per_page = 100
     filename = os.path.join(os.getcwd(), 'index.html')
-    for x in sites_single_array[0]:
-        for l in sites_single_array[x]
+
+    entries = [origin_data[page_offset:page_offset+entries_per_page] for page_offset in range(0, len(origin_data), entries_per_page)]
+    for page_number, page_entries in enumerate(entries):
         with open(filename, 'w+') as fw:
-            fw.write(template.render())
+            fw.write(template.render(data=page_entries))
+            fw.close()
+            fw = open('page/%s.html' % page_number, 'w')
+            fw.write(template.render(data=page_entries))
+
+        
+        
+        
+        
+        
+    
+    #filename = os.path.join(os.getcwd(), 'index.html')
+    #with open(filename, 'w+') as fw:
+        #fw.write(template.render())
 
 
     #filename = os.path.join(os.getcwd(), 'index.html')
@@ -82,8 +85,8 @@ def makeHTML(template):
         #fw.write(template.render(data=data))
 
 def main():
-    pg_to_list()
-    #makeHTML(loadTemplate())
+    #pg_to_list()
+    makeHTML(loadTemplate())
 
 if __name__ == '__main__':
     main()

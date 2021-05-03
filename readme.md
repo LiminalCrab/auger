@@ -72,7 +72,7 @@ This is where the createHTML.py outputs all the pages it generates.
 - [ ] Jinja implementation
     - [X] Remove Javascript / JSON, allow the database to populate the html directly.
     - [X] make it so their website favicons show up beside their articles
-    - [X] limit posts per page to 50 or 100.
+    - [X] limit posts per page to ~~50~~ or 100.
     - [ ] add post summaries.
 - [X] metadata.py (This will be expanded for more html related stuff in the future)
     - [X] - Get favicons.

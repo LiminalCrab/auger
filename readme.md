@@ -69,19 +69,17 @@ This is where the createHTML.py outputs all the pages it generates.
 # TO DO
 
 ## PRIMARY FOCUS
-- [ ] Jinja implementation
+- [X] Jinja implementation
     - [X] Remove Javascript / JSON, allow the database to populate the html directly.
     - [X] make it so their website favicons show up beside their articles
     - [X] limit posts per page to ~~50~~ or 100.
-    - [ ] add post summaries.
+    - [-] ~~add post summaries.~~
 - [X] metadata.py (This will be expanded for more html related stuff in the future)
     - [X] - Get favicons.
     - [X] - Process host site url.
     - [X] - Match host site and favicons to associated articles in db
 - [X] POSTGRESQL
     - [X] add row for article_host, article_favicon, article_summary.
-- [ ] pull.py
-    - [ ] Scrape for post_summaries and only collect (250 characters?)
 - [X] order.py
     - [-] decouple from JSON
     - [-] direct db output to html.

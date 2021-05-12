@@ -1,9 +1,9 @@
 :root {
     --text: black;
     --background: white;
-    --cyan: #048361;
-    --cyan-light: #39ad8e;
-    --cyan-dark: #3b695d;
+    --cyan: #2a846b;
+    --cyan-light: #43c9a5;
+    --cyan-dark: #287d66;
     --ratio: 1.5;
     --s-5: calc(var(--s-4) / var(--ratio));
     --s-4: calc(var(--s-3) / var(--ratio));
@@ -28,7 +28,8 @@
     :root {
         --text: white;
         --background: black;
-        --cyan: grey;
+        --cyan-dark: #249b7b;
+
     }
 
     header svg,
@@ -70,14 +71,22 @@ a:hover {
     color: var(--cyan-light);
 }
 
+h1,
+h2,
+h3 {
+    margin: 0;
+}
+
 main {
     max-width: 800px;
     max-width: 60ch;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: var(--s1);
 }
 
-header {
+header,
+footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,16 +94,40 @@ header {
     padding: var(--s0);
 }
 
-header svg {
+header svg,
+footer svg {
     width: var(--s4);
+}
+
+p,
+ul {
+    margin: 0;
 }
 
 ul {
     padding: 0;
+    list-style-type: none;
+}
+
+li>*+* {
+    margin-left: var(--s-5);
 }
 
 li {
-    line-height: .5;
+    line-height: 1.25;
+}
+
+li>* {
+    vertical-align: middle;
+
+}
+
+li>img {
+    border-radius: 50%;
+}
+
+li small a {
+    color: var(--text);
 }
 
 .flow>*+* {
@@ -113,3 +146,18 @@ li {
     margin-top: var(--s-5);
 }
 
+.pagination {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pagination ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.pagination ul *+* {
+    margin-left: var(--s-3);
+}

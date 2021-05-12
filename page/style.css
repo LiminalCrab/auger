@@ -91,14 +91,32 @@ header svg {
 
 ul {
     padding: 0;
+    list-style-type: none;
+}
+
+li>*+* {
+    margin-left: var(--s-5);
 }
 
 li {
     line-height: 1.25;
 }
 
+li>* {
+    vertical-align: middle;
+
+}
+
+li>img {
+    border-radius: 50%;
+}
+
 .flow>*+* {
     margin-top: var(--s0);
+}
+
+li small a {
+    color: var(--text);
 }
 
 .flow1>*+* {

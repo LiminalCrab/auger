@@ -94,7 +94,7 @@ ul {
 }
 
 li {
-    line-height: .5;
+    line-height: 1.25;
 }
 
 .flow>*+* {
@@ -112,4 +112,3 @@ li {
 .flow-5>*+* {
     margin-top: var(--s-5);
 }
-

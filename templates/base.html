@@ -12,18 +12,36 @@
         <svg width="120" xmlns="http://www.w3.org/2000/svg" baseProfile="full" aria-hidden="true" viewBox="0 0 220 220" :=""><path d="M140 20a60 60 0 00-60 60h60zM80 200a60 60 0 0060-60H80zM50 80a30 30 0 0130 30 30 30 0 01-30 30 30 30 0 01-30-30 30 30 0 0130-30zm60 0a30 30 0 0130 30 30 30 0 01-30 30 30 30 0 01-30-30 30 30 0 0130-30zm60 0a30 30 0 0130 30 30 30 0 01-30 30 30 30 0 01-30-30 30 30 0 0130-30"></path><path d="M80 20a60 60 0 0160 60H80zm60 180a60 60 0 01-60-60h60zM20 20a60 60 0 0160 60H20zm0 180a60 60 0 0060-60H20zM200 20a60 60 0 00-60 60h60zm0 180a60 60 0 01-60-60h60z"></path></svg>
         <h1> Auger </h1>
         <p>The <a href="https://webring.xxiivv.com/">Merveilles webring</a> aggregator.</p>
-        <p>Search with <a href="https://lieu.cblgh.org/">Lieu</a>.</p>
     </header>
-    <main>
-        {% for x in pg %} <a href="{{x}}.html">{{x}}</a>{% endfor %} <a href="end.html">end</a> 
-    <!-- [0] = title, [1] = href, [2] = date  [3] = favicons -->
-        <ul class="flow-3" id="content">
-        {% include 'content.html' %}
-        {% block content %}
-
-        {% endblock %}
+    <nav aria-label="Pagination navigation top"  class="pagination">
+        <p>Visit previous pages:</p>
+        <ul>
+            {% for x in pg %} 
+            <li><a href="{{x}}.html" aria-label="Page {{x}}">{{x}}</a>{% endfor %} <a href="end.html">end</a></li>
+            <!-- [0] = title, [1] = href, [2] = date  [3] = favicons -->
         </ul>
-        {% for x in pg %} <a href="{{x}}.html">{{x}}</a>{% endfor %} <a href="end.html">end</a> 
+    </nav>
+    <main>
+        <article class="flow">
+            <h2>Last updates</h2>
+            <ul class="flow-3" id="content">
+                {% include 'content.html' %}
+                {% block content %}
+                {% endblock %}
+            </ul>
+        </article>
     </main>
+    <nav aria-label="Pagination navigation bottom"  class="pagination">
+        <p>Visit previous pages:</p>
+        <ul>
+            {% for x in pg %} 
+            <li><a href="{{x}}.html">{{x}}</a>{% endfor %} <a href="end.html">end</a></li>
+            <!-- [0] = title, [1] = href, [2] = date  [3] = favicons -->
+        </ul>
+    </nav>
+    <footer>
+        <p><a href="https://github.com/LiminalCrab/auger#how-do-i-add-my-website-to-the-aggregator">Add your website</a> to the aggregaor.</p>
+        <p>Looking for something? Search it with <a href="https://lieu.cblgh.org/">Lieu</a>.</p>
+    </footer>
 </body>
 </html>

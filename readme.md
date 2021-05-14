@@ -123,6 +123,9 @@ This is where all the site json data submitted by order.py is held, and this is 
 
 
 # CREDITS
+
 [Preston](https://github.com/LiminalCrab) (LiminalCrab) - Creator, backend development.
+
 [Thomasorus](https://github.com/Thomasorus) - Frontend, accessibility, css and design.
+
 [Anish](https://github.com/Chickensoupwithrice) - Jinja2 implementation and assistance.

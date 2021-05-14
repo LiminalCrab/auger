@@ -2,7 +2,7 @@
 
 
 # ABOUT
-Hosted on www.sudogami.com/page/0.html
+Hosted on https://auger.sudogami.com/page/0.html
 
 TO DO list at the bottom.
 

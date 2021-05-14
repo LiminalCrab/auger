@@ -6,7 +6,7 @@ Hosted on www.sudogami.com/page/0.html
 
 TO DO list at the bottom.
 
-This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community. This idea was sparked from Cblgh's search engine "Lieu", and I hope it encourages everyone to post more on their blogs.
+This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community. This idea was sparked from Cblgh's search engine [Lieu](https://github.com/cblgh/lieu), and I hope it encourages everyone to post more on their blogs.
 
 ## How do I add my website to the aggregator?
 You have to be an active member of the Merveilles community, and thus the Mastodon rules apply to this page. You can read them here: https://merveilles.town/about/more
@@ -95,8 +95,8 @@ XXIIVV
 - [ ] Need to implement date scraping for XXIIVV updates which is using Arvelie to format it's dates. These updates are no included in RSS updates, instead they're updated on the HTML page itself, and the date format is using Arvelie's format. This might prove a bit of a challenge for scraping as a DATE itself, I don't know if I'll be able to embed it into postgres and still be able to sort as I do with these regular date formats which might cause some issues for how content is output to the page. Devine says that it's sortable with alphasort so I need to look into that. This will require some research, trial, and error.
 
 CSS
-- [ ] - Hyperlinks for host sites
-- [ ] - mess around with sizes and padding, no clear objective.
+- [X] - Hyperlinks for host sites
+- [X] - mess around with sizes and padding, no clear objective.
 
 POSTGRES
 - [ ] - Separate metadata table.
@@ -120,3 +120,9 @@ This is the last script ran by Cron, it sorts all the tables in the database by 
 ### data/links.json
 
 This is where all the site json data submitted by order.py is held, and this is what is output to the frontend. I plan on replacing this in the future, but for now, it simply works.
+
+
+# CREDITS
+[Preston](https://github.com/LiminalCrab) (LiminalCrab) - Creator, backend development.
+[Thomasorus](https://github.com/Thomasorus) - Frontend, accessibility, css and design.
+[Anish](https://github.com/Chickensoupwithrice) - Jinja2 implementation and assistance.

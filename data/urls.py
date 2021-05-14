@@ -1,12 +1,13 @@
 URLS =  [
         "http://nonmateria.com/rss.xml",
+        "https://q.pfiffer.org/feed.xml",
+        "https://ftrv.se/posts.rss",
         "https://notes.neeasade.net/rss.xml",
         "https://aless.co/rss.xml",
         "https://writing.natwelch.com/feed.rss",
         "https://resevoir.net/rss.xml",
         "https://szymonkaliski.com/feed.xml",
         "https://xj-ix.luxe/feed.atom",
-        "http://nonmateria.com/rss.xml",
         "https://oddworlds.org/rss.xml",
         "https://chad.is/rss.xml",
         "https://bismuth.garden/feed.xml",
@@ -18,7 +19,6 @@ URLS =  [
         "https://phse.net/post/index.xml",
         "https://rosano.ca/feed",
         "https://teknari.com/feed.xml",
-        "https://serocell.com/feeds/serocell.xml",
         "https://gueorgui.net/feed.xml",
         "https://sixey.es/feed.xml",
         "https://icyphox.sh/blog/feed.xml",
@@ -42,6 +42,7 @@ URLS =  [
 
 
 URLS_HTML =  [
+        "https://ftrv.se",
         "http://nonmateria.com",
         "https://notes.neeasade.net",
         "https://aless.co",
@@ -49,7 +50,6 @@ URLS_HTML =  [
         "https://resevoir.net",
         "https://szymonkaliski.com",
         "https://xj-ix.luxe",
-        "http://nonmateria.com",
         "https://oddworlds.org",
         "https://chad.is",
         "https://bismuth.garden",

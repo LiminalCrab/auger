@@ -6,15 +6,17 @@ Hosted on www.sudogami.com/page/0.html
 
 TO DO list at the bottom.
 
-This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community.
+This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community. This idea was sparked from Cblgh's search engine "Lieu", and I hope it encourages everyone to post more on their blogs.
 
 ## How do I add my website to the aggregator?
 You have to be an active member of the Merveilles community, and thus the Mastodon rules apply to this page. You can read them here: https://merveilles.town/about/more
-Your website must meet the [criteria of the Webring project](https://github.com/XXIIVV/Webring/#webring-criteria).
+Your website must meet the [criteria of the Webring project](https://github.com/XXIIVV/Webring/#webring-criteria). 
+
+Please ensure your XML is correct, atom feeds are so far the best for parsing, but if you use your own take a look at some other feeds on the list and try your best to match them up. If your XML is incorrect it'll cause the scripts to crash and I'll have to remove your site until I can figure out how to circumvent these errors.
 
 If you meet both of those conditions just modify url.py with your rss link, your website link, and make a code comment linking to your merveilles.town mastodon account and I'll look into it.
 
-If your website does not meet the Webring criteria but manages to make it on their anyway, It will be removed from Auger at my discretion. I really appreciate constructive content. If community members complain about said content, the post is likely to be removed.
+If your website does not meet the Webring criteria but manages to make it on their anyway, It will be removed from Auger at my discretion. If you post constructive content, it likely won't be an issue -- however; if community members complain about said content, that post will likely be removed. 
 
 
 ## HOW DOES IT WORK?
@@ -87,7 +89,10 @@ This is where the createHTML.py outputs all the pages it generates.
 - [ ] Server
     - [ ] See about replacing various CRON tabs with a single shell script.
 
-## BACK BURNER
+## OTHER STUFF THAT NEEDS DOING
+
+XXIIVV
+- [ ] Need to implement date scraping for XXIIVV updates which is using Arvelie to format it's dates. These updates are no included in RSS updates, instead they're updated on the HTML page itself, and the date format is using Arvelie's format. This might prove a bit of a challenge for scraping as a DATE itself, I don't know if I'll be able to embed it into postgres and still be able to sort as I do with these regular date formats which might cause some issues for how content is output to the page. Devine says that it's sortable with alphasort so I need to look into that. This will require some research, trial, and error.
 
 CSS
 - [ ] - Hyperlinks for host sites

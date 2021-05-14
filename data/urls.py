@@ -38,7 +38,9 @@ URLS =  [
         "https://natehn.com/index.xml",
         "https://www.gr0k.net/blog/feed.xml",
         "https://tendigits.space/feed.xml",
-        "https://wiki.xxiivv.com/links/rss.xml"]
+        "https://wiki.xxiivv.com/links/rss.xml",
+        "https://thomasorus.com/feed.xml",
+        "https://maxdeviant.com/atom.xml"]
 
 
 URLS_HTML =  [
@@ -82,4 +84,6 @@ URLS_HTML =  [
         "https://natehn.com",
         "https://www.gr0k.net",
         "https://tendigits.space",
-        "https://wiki.xxiivv.com"]
+        "https://wiki.xxiivv.com",
+        "https://thomasorus.com",
+        "https://maxdeviant.com"]

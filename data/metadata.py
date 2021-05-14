@@ -5,9 +5,17 @@ import asyncio
 import httpx
 
 
-#[WHAT IS THIS]
-#Scrapes URLS_HTML for their favicon links using beautiful soup. It's also where
-#we get the host_url for the database. 
+
+'''
+#WHAT IS THIS#
+This uses beautiful soup to scrape the html pages. This does not use the url.py files, instead to match the favicons and host website to their corresponding blog post in the database, 
+we pull the list of all current articles in the database, use sql to remove the majority of the hyperlink and just keep the literal site url. 
+This is then submitted to a list which python iterates through and beautiful soup scrapes the favicons from. 
+Afterwards, we combine the host url we stripped out earlier and the directory of the favicons we scraped using urllib.
+
+This is extremely hacky and takes about 3 minutes to complete.
+'''
+
  
 
 #open initial connection

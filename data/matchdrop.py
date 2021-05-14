@@ -6,6 +6,15 @@ conn = psycopg2.connect("")
 #open initial cursor
 cur = conn.cursor()
 
+'''
+#WHAT IS THIS#
+This looks for duplicates in the database and removes them. It also removes posts that are missing vital information
+such as the article date and the article url. Auger could have missed these for a variety of reasons, such as improper
+XML code or it simply... just didn't figure it out I guess. 
+
+NOTE: Dupes_del is currently unused as it as wiping the entire db, will repair someday... someday.
+'''
+
 def main():
     
     #this might be causing some problems.

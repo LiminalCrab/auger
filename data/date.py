@@ -4,7 +4,10 @@ import psycopg2
 import asyncio
 import httpx
 
-
+'''
+#WHAT IS THIS#
+ Scrapes the dates from each article of each website in the list of URLS in urls.py and submit it to the database.
+'''
 
 #open initial connection
 conn = psycopg2.connect("")

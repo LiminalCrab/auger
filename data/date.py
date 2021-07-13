@@ -22,7 +22,7 @@ async def main():
     conn = psycopg2.connect("")
     conn.set_session(autocommit=True)
     
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(verify=False) as client:
         for feed in URLS:
             response = await client.get(feed, timeout=30.0)
             try:

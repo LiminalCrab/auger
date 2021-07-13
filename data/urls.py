@@ -22,7 +22,6 @@ URLS =  [
         "https://gueorgui.net/feed.xml",
         "https://sixey.es/feed.xml",
         "https://icyphox.sh/blog/feed.xml",
-        "https://royniang.com/rss.xml",
         "https://crlf.site/feed.xml",
         "https://www.edwinwenink.xyz/index.xml",
         "https://www.mentalnodes.com/sitemap.xml",

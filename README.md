@@ -1,12 +1,9 @@
 # DOCUMENTATION
 
-
 # ABOUT
 Hosted on https://auger.sudogami.com/page/0.html
 
-TO DO list at the bottom.
-
-This is an RSS feed for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community. This idea was sparked from Cblgh's search engine [Lieu](https://github.com/cblgh/lieu), and I hope it encourages everyone to post more on their blogs.
+This is an RSS feed aggregator for the [Merveilles webring project](https://github.com/XXIIVV/Webring/), it's a static page that's updated once daily with all the recent articles written by the community. This idea was sparked from Cblgh's search engine [Lieu](https://github.com/cblgh/lieu), and I hope it encourages everyone to post more on their blogs.
 
 ## How do I add my website to the aggregator?
 You have to be an active member of the Merveilles community, and thus the Mastodon rules apply to this page. You can read them here: https://merveilles.town/about/more

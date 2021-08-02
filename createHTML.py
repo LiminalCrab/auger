@@ -53,16 +53,17 @@ def makeHTML(template):
     pnum = []
     for page_number, page_entries in enumerate(entries):
         pnum.append(str(page_number))
+
     for page_number, page_entries in enumerate(entries):
         with open(filename, 'w+') as fw:
             fw.write(template.render(data=page_entries, pg=pnum))
             fw.close()
             fw = open('page/%s.html' % page_number, 'w')
             fw.write(template.render(data=page_entries, pg=pnum))
+
     print(pnum)
 
 def main():
-    #pg_to_list()
     makeHTML(loadTemplate())
 
 if __name__ == '__main__':

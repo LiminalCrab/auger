@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from typing import Any
 
 app = FastAPI()
 
@@ -15,7 +16,7 @@ def feed(
     article_link: str,
     article_title: str,
     article_desc: str,
-    article_date: str,
+    article_date: Any,
 ) -> dict:
 
     return {
